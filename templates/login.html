@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Login</title>
+    <meta name="description" content="Login" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/static/css/login.css" />
+    <link rel="icon" href="/static/images/logo.svg" />
+    <script src="/static/js/login.js" defer></script>
+  </head>
+<body>
+
+    <div class="login">
+        <div class="login__container">
+            <div class="login__container__logo">
+                <img src="/static/images/logo.svg" alt="logo" />
+            </div>
+            <div class="alert_container" id="alert_container" style="display: none;">
+                <p><span class="alert_message" id="alert_message">Invalid Username/Password</span><span class="closebtn" onclick="this.parentElement.parentElement.style.display='none';">&times;</span></p>
+            </div>
+            <div class="login__container__form">
+                <form>
+                    <div class="login__container__form__input">
+                        <input type="text" name="email" id="email" placeholder="Enter your email" />
+                    </div>
+                    <div class="login__container__form__input">
+                        <input type="password" name="password" id="password" placeholder="Enter your password" />
+                    </div>
+                    <div class="login__container__form__button">
+                        <button type="submit" id="login_button">Login</button>
+                    </div>
+                </form>
+                <div class="login__container__forgot__password">
+                    <a href="/forgot-password">Forgot password?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
