@@ -269,7 +269,7 @@ var map = L.map("map", {
 });
 
 L.tileLayer(
-  "https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png"
+  "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 ).addTo(map);
 
 var makerLayer = L.layerGroup().addTo(map);
