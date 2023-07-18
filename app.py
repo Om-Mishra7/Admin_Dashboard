@@ -74,7 +74,7 @@ app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['SESSION_REDIS'] = redis.from_url(
-    'redis://default:40RX7WwPMtFGpp3vvflizudm2ISdhAEm@redis-11234.c8.us-east-1-4.ec2.cloud.redislabs.com:11234')
+    'redis://default:02J4lzbMtT06zIWLYIk7LmobFEi70wR0@redis-15259.c264.ap-south-1-1.ec2.cloud.redislabs.com:15259')
 
 server_session = Session(app)
 
