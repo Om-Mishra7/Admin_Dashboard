@@ -1,4 +1,5 @@
 flask
-mysql.connector
+mysql-connector-python
 redis
 Flask-Session
+bcrypt
