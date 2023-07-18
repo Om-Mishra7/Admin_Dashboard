@@ -1,56 +1,31 @@
 
-async function hideLoader () {
-  const hide = document.querySelectorAll(".hide");
-  hide.forEach((element) => {
-    element.classList.remove("hide");
-  });
-
-  const loader = document.getElementById("loader");
-  loader.setAttribute("style", "display: none !important");
-
-};
-
-window.addEventListener("load", hideLoader);
-
-
-
 const menubutton = document.getElementById("menu-button");
 
-const date = document.getElementById("date");
+const profilePicture = document.getElementById("profile-picture");
 
-const startDate = document.getElementById("start-date");
+const userName = document.getElementById("user-name");
 
-const endDate = document.getElementById("end-date");
+const timeRange = document.getElementById("time-range");
+
+const displayTimeRange = document.getElementById("display-time-range");
 
 const greetingText = document.getElementById("greeting-text");
 
-var currentDate = new Date();
+var dataset = []; // For Incident Primary Chart
 
-var unixStartDate = null;
+fetch("/api/v1/user/profile", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
+})
+  .then((response) => response.json())
+  .then((data) => {
+    profilePicture.setAttribute("src", data.profile_picture_url);
+    userName.innerHTML = data.user_name;
+  });
 
-date.valueAsDate = currentDate;
-
-date.max = new Date().toISOString().split("T")[0];
-
-date.addEventListener("change", refreshData);
-
-endDate.innerText =
-  currentDate.getDate() +
-  "-" +
-  (currentDate.getMonth() + 1) +
-  "-" +
-  currentDate.getFullYear();
-
-currentDate.setMonth(currentDate.getMonth() - 6);
-
-date.valueAsDate = currentDate;
-
-startDate.innerText =
-  currentDate.getDate() +
-  "-" +
-  (currentDate.getMonth() + 1) +
-  "-" +
-  currentDate.getFullYear();
+refreshData();
 
 document.querySelectorAll(".nav-link").forEach((link) => {
   if (link.href === window.location.href) {
@@ -99,16 +74,6 @@ menubutton.addEventListener("click", () => {
   } else {
   }
 });
-
-function refreshData() {
-  console.log("Refreshing Data");
-  const date = document.getElementById("date").valueAsDate;
-  const startDate = document.getElementById("start-date");
-  startDate.innerText =
-    date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-  unixStartDate = date.getTime() / 1500;
-  console.log("Data Refreshed");
-}
 
 const modalOpenButton = document.querySelectorAll(".view-button");
 
@@ -159,35 +124,25 @@ const customPalette = [
   "#a56eff",
 ];
 
-var dataset = [
-  {
-    label: "GUJARAT",
-    data: [65, 59, 80, 81, 56, 55, 40],
-  },
-  {
-    label: "MAHARASHTRA",
-    data: [77, 88, 99, 150, 66, 77, 44],
-  },
-  {
-    label: "RAJASTHAN",
-    data: [88, 99, 150, 110, 77, 88, 55],
-  },
-  {
-    label: "MADHYA PRADESH",
-    data: [99, 110, 121, 132, 88, 99, 66],
-  },
-  {
-    label: "UTTAR PRADESH",
-    data: [110, 121, 132, 143, 99, 110, 77],
-  },
-];
-
 const incidentPrimaryChart = new Chart(
   document.getElementById("incidentPrimaryChart").getContext("2d"),
   {
     type: "line",
     data: {
-      labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
+      labels: [
+        "JAN",
+        "FEB",
+        "MAR",
+        "APR",
+        "MAY",
+        "JUN",
+        "JUL",
+        "AUG",
+        "SEP",
+        "OCT",
+        "NOV",
+        "DEC",
+      ],
       datasets: dataset,
     },
     options: {
@@ -250,11 +205,11 @@ const mttrPrimaryChart = new Chart(
   {
     type: "bar",
     data: {
-      labels: ["GUJ", "MAH", "RAJ", "MP", "UP", "DEL"],
+      labels: [],
       datasets: [
         {
-          data: [15, 20, 30, 40, -15, 10],
-          label: "MTTR (in Days)",
+          data: [],
+          label: "MTTR (in Hours)",
           backgroundColor: "rgb(44, 60, 132)",
           borderRadius: 10,
         },
@@ -263,7 +218,7 @@ const mttrPrimaryChart = new Chart(
     options: {
       scales: {
         y: {
-          beginAtZero: false,
+          beginAtZero: true,
           grid: {
             display: true,
             drawBorder: false,
@@ -307,31 +262,225 @@ const svgIcon = L.divIcon({
   iconAnchor: [12, 40],
 });
 
-var map_init = L.map("map", {
+var map = L.map("map", {
   center: [23.0707, 80.0982],
   zoom: 5,
   attributionControl: false,
 });
 
-var osm = L.tileLayer(
+L.tileLayer(
   "https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png"
-).addTo(map_init);
+).addTo(map);
+
+var makerLayer = L.layerGroup().addTo(map);
 
 var markerOptions = {
   icon: svgIcon,
 };
 
-var marker152 = L.marker([23.0707, 80.0982], markerOptions).addTo(map_init);
-marker152.bindPopup("<p style='text-align:left'>Site ID - 5465</p><p style='text-align:left'>Site Name - Agra</p><p style='text-align:left'>Site Type - 2G</p><p style='text-align:left'>Site Status - Active</p><p style='text-align:left'>Site Address - Agra, Uttar Pradesh</p><p style='text-align:left'>Site Owner - Airtel</p><p style='text-align:left'>Site Contact - 9876543210</p><p style='text-align:left'>Site Lat - 23.0707</p><p style='text-align:left'>Site Long - 80.0982</p>");
+timeRange.addEventListener("change", refreshData);
 
-var marker153 = L.marker([25.0707, 82.0982], markerOptions).addTo(map_init);
-marker153.bindPopup("<p style='text-align:left'>Site ID - 5465</p><p style='text-align:left'>Site Name - Agra</p><p style='text-align:left'>Site Type - 2G</p><p style='text-align:left'>Site Status - Active</p><p style='text-align:left'>Site Address - Agra, Uttar Pradesh</p><p style='text-align:left'>Site Owner - Airtel</p><p style='text-align:left'>Site Contact - 9876543210</p><p style='text-align:left'>Site Lat - 23.0707</p><p style='text-align:left'>Site Long - 80.0982</p>");
+function refreshData() {
+  console.log("Refreshing Data");
+  displayTimeRange.innerHTML = `${timeRange.value} - ${
+    parseInt(timeRange.value) + 1
+  }`;
+  fetch(`/api/v1/incident-management?year=${timeRange.value}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      // Seetting The MTTR Chart Data
+      dataset = [];
+      mttrPrimaryChart.data.datasets[0].data = Object.values(data[1]);
+      mttrPrimaryChart.data.labels = Object.keys(data[1]);
+      mttrPrimaryChart.update();
 
-var marker154 = L.marker([27.0707, 84.0982], markerOptions).addTo(map_init);
-marker154.bindPopup("<p style='text-align:left'>Site ID - 5465</p><p style='text-align:left'>Site Name - Agra</p><p style='text-align:left'>Site Type - 2G</p><p style='text-align:left'>Site Status - Active</p><p style='text-align:left'>Site Address - Agra, Uttar Pradesh</p><p style='text-align:left'>Site Owner - Airtel</p><p style='text-align:left'>Site Contact - 9876543210</p><p style='text-align:left'>Site Lat - 23.0707</p><p style='text-align:left'>Site Long - 80.0982</p>");
+      // Setting The Number Of Incident Chart Data
+      console.log(data[2]);
+      for (var i = 0; i < Object.keys(data[2]).length; i++) {
+        dataset.push({
+          label: Object.keys(data[2])[i],
+          data: Object.values(data[2])[i],
+        });
+      }
+      incidentPrimaryChart.data.datasets = dataset;
+      incidentPrimaryChart.update();
 
-var marker155 = L.marker([29.0707, 86.0982], markerOptions).addTo(map_init);
-marker155.bindPopup("<p style='text-align:left'>Site ID - 5465</p><p style='text-align:left'>Site Name - Agra</p><p style='text-align:left'>Site Type - 2G</p><p style='text-align:left'>Site Status - Active</p><p style='text-align:left'>Site Address - Agra, Uttar Pradesh</p><p style='text-align:left'>Site Owner - Airtel</p><p style='text-align:left'>Site Contact - 9876543210</p><p style='text-align:left'>Site Lat - 23.0707</p><p style='text-align:left'>Site Long - 80.0982</p>");
+      // Setting The Map Data
 
-var marker156 = L.marker([20.0707, 75.0982], markerOptions).addTo(map_init);
-marker156.bindPopup("<p style='text-align:left'>Site ID - 5465</p><p style='text-align:left'>Site Name - Agra</p><p style='text-align:left'>Site Type - 2G</p><p style='text-align:left'>Site Status - Active</p><p style='text-align:left'>Site Address - Agra, Uttar Pradesh</p><p style='text-align:left'>Site Owner - Airtel</p><p style='text-align:left'>Site Contact - 9876543210</p><p style='text-align:left'>Site Lat - 23.0707</p><p style='text-align:left'>Site Long - 80.0982</p>");
+      makerLayer.clearLayers();
+      map.closePopup();
+
+      for (var i = 0; i < data[0].length; i++) {
+        var coordinate = data[0][i][14].split(",");
+        var id = data[0][i][0];
+        var circle_name = data[0][i][2];
+        var site_name = data[0][i][3];
+        var incidenCause = data[0][i][10];
+        var inicdentDescription = data[0][i][8];
+        var incidentDate = data[0][i][5];
+
+        var incidentID = L.marker(
+          [parseInt(coordinate[0]), parseInt(coordinate[1])],
+          markerOptions
+        ).addTo(makerLayer);
+        incidentID.bindPopup(
+          `<p style='text-align:left'>Incident ID - ${id}</p><p style='text-align:left'>Incident Date - ${incidentDate}</p><p style='text-align:left'>Circle Name - ${circle_name}</p><p style='text-align:left'>Site Name - ${site_name}</p><p style='text-align:left'>Incident Cause - ${incidenCause}</p><p style='text-align:left'>Incident Description - ${inicdentDescription}</p>`
+        );
+      }
+
+      // Setting The Incident Table Data
+
+      var incident_table = document.getElementById("incident_table");
+
+      var rows = incident_table.getElementsByTagName("tr");
+
+      for (var i = rows.length - 1; i > 0; i--) {
+        incident_table.deleteRow(i);
+      }
+
+      for (var i = 0; i < data[0].length; i++) {
+        var newRow = document.createElement("tr");
+
+        var id = document.createElement("td");
+        id.innerHTML = data[0][i][0];
+
+        var employeeName = document.createElement("td");
+        employeeName.innerHTML = data[0][i][1];
+
+        var circleName = document.createElement("td");
+        circleName.innerHTML = data[0][i][2];
+
+        var siteID = document.createElement("td");
+        siteID.innerHTML = data[0][i][3];
+
+        var siteName = document.createElement("td");
+        siteName.innerHTML = data[0][i][4];
+
+        var incidentDate = document.createElement("td");
+        incidentDate.innerHTML = data[0][i][5];
+
+        var verified = document.createElement("td");
+        verified.innerHTML = data[0][i][6];
+
+        var approved = document.createElement("td");
+        approved.innerHTML = data[0][i][7];
+
+        var viewButton = document.createElement("td");
+        viewButton.innerHTML = `<button class="view-button" data-incidentID=${data[0][i][0]}> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" > <path d="M480.118-330Q551-330 600.5-379.618q49.5-49.617 49.5-120.5Q650-571 600.382-620.5q-49.617-49.5-120.5-49.5Q409-670 359.5-620.382q-49.5 49.617-49.5 120.5Q310-429 359.618-379.5q49.617 49.5 120.5 49.5ZM480-404q-40 0-68-28t-28-68q0-40 28-68t68-28q40 0 68 28t28 68q0 40-28 68t-68 28Zm0 227q-154 0-278-90T17-500q61-143 185-233t278-90q154 0 278 90t185 233q-61 143-185 233t-278 90Zm0-323Zm-.08 240q120.454 0 221.267-65.5T855-500q-53-109-153.733-174.5Q600.533-740 480.08-740q-120.454 0-221.267 65.5T104-500q54 109 154.733 174.5Q359.467-260 479.92-260Z" /> </svg> View </button>`;
+
+        newRow.appendChild(id);
+        newRow.appendChild(employeeName);
+        newRow.appendChild(circleName);
+        newRow.appendChild(siteID);
+        newRow.appendChild(siteName);
+        newRow.appendChild(incidentDate);
+        newRow.appendChild(verified);
+        newRow.appendChild(approved);
+        newRow.appendChild(viewButton);
+
+        incident_table.appendChild(newRow);
+      }
+
+      const modalOpenButton = document.querySelectorAll(".view-button");
+
+        modalOpenButton.forEach((button) => {
+          button.addEventListener("click", () => {
+            modal.classList.add("active");
+
+            console.log(button.getAttribute("data-incidentID"));
+
+            fetch(`/api/v1/incident-management/${button.getAttribute("data-incidentID")}`)
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                var modal_employee_name = document.getElementById("modal_employee_name");
+                modal_employee_name.innerHTML = `Name Of Employee - ${data[1]}`;
+
+                var modal_circle_name = document.getElementById("modal_circle_name");
+                modal_circle_name.innerHTML = `Circle Name - ${data[2]}`;
+
+                var modal_site_id = document.getElementById("modal_site_id");
+                modal_site_id.innerHTML = `Site ID - ${data[3]}`;
+
+                var modal_site_name = document.getElementById("modal_site_name");
+                modal_site_name.innerHTML = `Site Name - ${data[4]}`;
+
+                var modal_incident_date = document.getElementById("modal_incident_date");
+                modal_incident_date.innerHTML = `Incident Date - ${data[5]}`;
+
+                var modal_verified = document.getElementById("modal_verified");
+                modal_verified.innerHTML = `Verified - ${data[6]}`;
+
+                var modal_approved = document.getElementById("modal_approved");
+                modal_approved.innerHTML = `Approved - ${data[7]}`;
+
+                var modal_incident_type = document.getElementById("modal_incident_type");
+                modal_incident_type.innerHTML = `Incident Type - ${data[9]}`;
+
+                var modal_incident_cause = document.getElementById("modal_incident_cause");
+                modal_incident_cause.innerHTML = `Incident Cause - ${data[10]}`;
+
+                var modal_incident_description = document.getElementById("modal_incident_description");
+                modal_incident_description.innerHTML = `Incident Description - ${data[8]}`;
+
+                var modal_incident_action = document.getElementById("modal_incident_action");
+                modal_incident_action.innerHTML = `Incident Action - ${data[11]}`;
+
+                var modal_media = document.getElementById("modal_media");
+
+                if (data[12] == null) {
+                  modal_media.innerHTML = `Media - No Media`;
+                } else {
+                  for (i in Object.values(JSON.parse(data[12]))) {
+                    image_url = Object.values(JSON.parse(data[12]))[i];
+
+                    modal_media.innerHTML += `<a href=${image_url} target="_blank">
+                    <img src=${image_url} alt="Incident Image" />
+                  </a>`;
+
+                  }
+                }
+                
+              })
+
+              .catch((error) => {
+                console.log(error);
+              });
+
+            const modalID = document.getElementById("modalID");
+
+            modalID.innerText = button.getAttribute("data-incidentID");
+
+            const main = document.getElementById("main");
+            main.classList.add("modal-active");
+
+            const aside = document.getElementById("aside");
+            aside.classList.add("modal-active");
+          });
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  console.log("Refreshed Data");
+}
+
+function hideLoader() {
+  const hide = document.querySelectorAll(".hide");
+  hide.forEach((element) => {
+    element.classList.remove("hide");
+  });
+
+  const loader = document.getElementById("loader");
+  loader.setAttribute("style", "display: none !important");
+}
+
+window.addEventListener("load", hideLoader);

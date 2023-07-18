@@ -223,19 +223,23 @@
           <li class="top-nav-item no-mobile" id="greeting">
             <p class="faded-text no-mobile">
               <span id="greeting-text" class="no-mobile">Good Morning,</span
-              ><span class="highlighted-text no-mobile"> Om Mishra</span>
+              ><span class="highlighted-text no-mobile" id="user-name"></span>
             </p>
             <p class="faded-text-small no-mobile">
               Be more productive with actionable insights and tools
             </p>
           </li>
           <li class="top-nav-item">
-            <input type="date" name="time-period" id="date" />
+            <select id="time-range">
+              {% for year in year_array %}
+              <option value="{{ year }}">{{ year }}-{{ year + 1 }}</option>
+              {% endfor %}
+            </select>
           </li>
           <li class="top-nav-item">
             <img
               id="profile-picture"
-              src="https://source.boringavatars.com/beam/50"
+              src=""
               alt="Profile Picture"
               height="50px"
               width="50px"
@@ -247,8 +251,7 @@
       <section class="topbar">
         <p class="no-mobile">
           The report encompasses data from
-          <span class="time-range" id="start-date">1st of January 2021</span> to
-          <span class="time-range" id="end-date">31st of January 2021</span>
+          <span class="time-range" id="display-time-range"></span>
         </p>
         <button id="copy-button">
           <svg
@@ -299,7 +302,7 @@
         </div>
         <div class="lower">
           <p style="text-align: left" class="heading">Incident Reports</p>
-          <table>
+          <table id="incident_table">
             <tr class="header">
               <th>ID</th>
               <th>Employee Name</th>
@@ -312,121 +315,7 @@
               <th></th>
               <th></th>
             </tr>
-            <tr>
-              <td>1</td>
-              <td>Om Mishra</td>
-              <td>Circle 1</td>
-              <td>Site 1</td>
-              <td>Site 1</td>
-              <td>1st Jan 2021</td>
-              <td>Yes</td>
-              <td>Yes</td>
-              <td colspan="2">
-                <button class="view-button" data-incidentID="512">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 -960 960 960"
-                  >
-                    <path
-                      d="M480.118-330Q551-330 600.5-379.618q49.5-49.617 49.5-120.5Q650-571 600.382-620.5q-49.617-49.5-120.5-49.5Q409-670 359.5-620.382q-49.5 49.617-49.5 120.5Q310-429 359.618-379.5q49.617 49.5 120.5 49.5ZM480-404q-40 0-68-28t-28-68q0-40 28-68t68-28q40 0 68 28t28 68q0 40-28 68t-68 28Zm0 227q-154 0-278-90T17-500q61-143 185-233t278-90q154 0 278 90t185 233q-61 143-185 233t-278 90Zm0-323Zm-.08 240q120.454 0 221.267-65.5T855-500q-53-109-153.733-174.5Q600.533-740 480.08-740q-120.454 0-221.267 65.5T104-500q54 109 154.733 174.5Q359.467-260 479.92-260Z"
-                    />
-                  </svg>
-                  View
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Om Mishra</td>
-              <td>Circle 1</td>
-              <td>Site 1</td>
-              <td>Site 1</td>
-              <td>1st Jan 2021</td>
-              <td>Yes</td>
-              <td>Yes</td>
-              <td colspan="2">
-                <button class="view-button" data-incidentID="512">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 -960 960 960"
-                  >
-                    <path
-                      d="M480.118-330Q551-330 600.5-379.618q49.5-49.617 49.5-120.5Q650-571 600.382-620.5q-49.617-49.5-120.5-49.5Q409-670 359.5-620.382q-49.5 49.617-49.5 120.5Q310-429 359.618-379.5q49.617 49.5 120.5 49.5ZM480-404q-40 0-68-28t-28-68q0-40 28-68t68-28q40 0 68 28t28 68q0 40-28 68t-68 28Zm0 227q-154 0-278-90T17-500q61-143 185-233t278-90q154 0 278 90t185 233q-61 143-185 233t-278 90Zm0-323Zm-.08 240q120.454 0 221.267-65.5T855-500q-53-109-153.733-174.5Q600.533-740 480.08-740q-120.454 0-221.267 65.5T104-500q54 109 154.733 174.5Q359.467-260 479.92-260Z"
-                    />
-                  </svg>
-                  View
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Om Mishra</td>
-              <td>Circle 1</td>
-              <td>Site 1</td>
-              <td>Site 1</td>
-              <td>1st Jan 2021</td>
-              <td>Yes</td>
-              <td>Yes</td>
-              <td colspan="2">
-                <button class="view-button" data-incidentID="512">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 -960 960 960"
-                  >
-                    <path
-                      d="M480.118-330Q551-330 600.5-379.618q49.5-49.617 49.5-120.5Q650-571 600.382-620.5q-49.617-49.5-120.5-49.5Q409-670 359.5-620.382q-49.5 49.617-49.5 120.5Q310-429 359.618-379.5q49.617 49.5 120.5 49.5ZM480-404q-40 0-68-28t-28-68q0-40 28-68t68-28q40 0 68 28t28 68q0 40-28 68t-68 28Zm0 227q-154 0-278-90T17-500q61-143 185-233t278-90q154 0 278 90t185 233q-61 143-185 233t-278 90Zm0-323Zm-.08 240q120.454 0 221.267-65.5T855-500q-53-109-153.733-174.5Q600.533-740 480.08-740q-120.454 0-221.267 65.5T104-500q54 109 154.733 174.5Q359.467-260 479.92-260Z"
-                    />
-                  </svg>
-                  View
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Om Mishra</td>
-              <td>Circle 1</td>
-              <td>Site 1</td>
-              <td>Site 1</td>
-              <td>1st Jan 2021</td>
-              <td>Yes</td>
-              <td>Yes</td>
-              <td colspan="2">
-                <button class="view-button" data-incidentID="512">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 -960 960 960"
-                  >
-                    <path
-                      d="M480.118-330Q551-330 600.5-379.618q49.5-49.617 49.5-120.5Q650-571 600.382-620.5q-49.617-49.5-120.5-49.5Q409-670 359.5-620.382q-49.5 49.617-49.5 120.5Q310-429 359.618-379.5q49.617 49.5 120.5 49.5ZM480-404q-40 0-68-28t-28-68q0-40 28-68t68-28q40 0 68 28t28 68q0 40-28 68t-68 28Zm0 227q-154 0-278-90T17-500q61-143 185-233t278-90q154 0 278 90t185 233q-61 143-185 233t-278 90Zm0-323Zm-.08 240q120.454 0 221.267-65.5T855-500q-53-109-153.733-174.5Q600.533-740 480.08-740q-120.454 0-221.267 65.5T104-500q54 109 154.733 174.5Q359.467-260 479.92-260Z"
-                    />
-                  </svg>
-                  View
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Om Mishra</td>
-              <td>Circle 1</td>
-              <td>Site 1</td>
-              <td>Site 1</td>
-              <td>1st Jan 2021</td>
-              <td>Yes</td>
-              <td>Yes</td>
-              <td colspan="2">
-                <button class="view-button" data-incidentID="512">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 -960 960 960"
-                  >
-                    <path
-                      d="M480.118-330Q551-330 600.5-379.618q49.5-49.617 49.5-120.5Q650-571 600.382-620.5q-49.617-49.5-120.5-49.5Q409-670 359.5-620.382q-49.5 49.617-49.5 120.5Q310-429 359.618-379.5q49.617 49.5 120.5 49.5ZM480-404q-40 0-68-28t-28-68q0-40 28-68t68-28q40 0 68 28t28 68q0 40-28 68t-68 28Zm0 227q-154 0-278-90T17-500q61-143 185-233t278-90q154 0 278 90t185 233q-61 143-185 233t-278 90Zm0-323Zm-.08 240q120.454 0 221.267-65.5T855-500q-53-109-153.733-174.5Q600.533-740 480.08-740q-120.454 0-221.267 65.5T104-500q54 109 154.733 174.5Q359.467-260 479.92-260Z"
-                    />
-                  </svg>
-                  View
-                </button>
-              </td>
-            </tr>
+
           </table>
         </div>
       </section>
@@ -462,43 +351,23 @@
       <div class="modal-body">
         <p class="modal-body-header">Information</p>
         <div>
-          <p>Name of Employee: Om Mishra</p>
-          <p>Circle Name: Circle 1</p>
-          <p>Site ID: Site 1</p>
-          <p>Site Name: Site 1</p>
-          <p>Date: 1st Jan 2021</p>
-          <p>Verified: Yes</p>
-          <p>Approved: Yes</p>
+          <p id="modal_employee_name">Loading...</p>
+          <p id="modal_circle_name">Loading...</p>
+          <p id="modal_site_id">Loading...</p>
+          <p id="modal_site_name">Loading...</p>
+          <p id="modal_incident_date">Loading...</p>
+          <p id="modal_verified">Loading...</p>
+          <p id="modal_approved">Loading...</p>
         </div>
         <p class="modal-body-header">Incident Details</p>
         <div>
-          <p>Incident Type: Fire</p>
-          <p>Incident Date: 1st Jan 2021</p>
-          <p>Incident Time: 1:00 PM</p>
-          <p>Incident Location: Site 1</p>
-          <p>Incident Description: Fire in the building</p>
-          <p>Incident Cause: Short Circuit</p>
-          <p>Incident Severity: High</p>
-          <p>Incident Impact: High</p>
-          <p>Incident Action: Evacuation</p>
-          <p>Incident Action Description: Evacuated the building</p>
+          <p id="modal_incident_type">Loading...</p>
+          <p id="modal_incident_cause">Loading...</p>
+          <p id="modal_incident_description">Loading...</p>
+          <p id="modal_incident_action">Loading...</p>
         </div>
         <p class="modal-body-header">Media</p>
-        <div class="media">
-          <a href="https://picsum.photos/500/500" target="_blank">
-            <img src="https://picsum.photos/500/500" alt="Image 1" />
-          </a>
-          <a href="https://picsum.photos/500/500" target="_blank">
-            <img src="https://picsum.photos/500/500" alt="Image 2" />
-          </a>
-          <a href="https://picsum.photos/500/500" target="_blank">
-            <img src="https://picsum.photos/500/500" alt="Image 3" />
-          </a>
-          <video
-            src="https://www.w3schools.com/html/mov_bbb.mp4"
-            controls
-            poster="https://picsum.photos/500/500"
-          ></video>
+        <div class="media" id="modal_media">
         </div>
       </div>
     </div>
