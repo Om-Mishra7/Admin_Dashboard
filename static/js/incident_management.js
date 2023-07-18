@@ -1,4 +1,3 @@
-
 const menubutton = document.getElementById("menu-button");
 
 const profilePicture = document.getElementById("profile-picture");
@@ -268,9 +267,7 @@ var map = L.map("map", {
   attributionControl: false,
 });
 
-L.tileLayer(
-  "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-).addTo(map);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
 var makerLayer = L.layerGroup().addTo(map);
 
@@ -281,7 +278,6 @@ var markerOptions = {
 timeRange.addEventListener("change", refreshData);
 
 function refreshData() {
-  console.log("Refreshing Data");
   displayTimeRange.innerHTML = `${timeRange.value} - ${
     parseInt(timeRange.value) + 1
   }`;
@@ -302,7 +298,6 @@ function refreshData() {
       mttrPrimaryChart.update();
 
       // Setting The Number Of Incident Chart Data
-      console.log(data[2]);
       for (var i = 0; i < Object.keys(data[2]).length; i++) {
         dataset.push({
           label: Object.keys(data[2])[i],
@@ -390,87 +385,99 @@ function refreshData() {
 
       const modalOpenButton = document.querySelectorAll(".view-button");
 
-        modalOpenButton.forEach((button) => {
-          button.addEventListener("click", () => {
-            modal.classList.add("active");
+      modalOpenButton.forEach((button) => {
+        button.addEventListener("click", () => {
+          modal.classList.add("active");
 
-            console.log(button.getAttribute("data-incidentID"));
+          fetch(
+            `/api/v1/incident-management/${button.getAttribute(
+              "data-incidentID"
+            )}`
+          )
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              var modal_employee_name = document.getElementById(
+                "modal_employee_name"
+              );
+              modal_employee_name.innerHTML = `Name Of Employee - ${data[1]}`;
 
-            fetch(`/api/v1/incident-management/${button.getAttribute("data-incidentID")}`)
-              .then((response) => {
-                return response.json();
-              })
-              .then((data) => {
-                var modal_employee_name = document.getElementById("modal_employee_name");
-                modal_employee_name.innerHTML = `Name Of Employee - ${data[1]}`;
+              var modal_circle_name =
+                document.getElementById("modal_circle_name");
+              modal_circle_name.innerHTML = `Circle Name - ${data[2]}`;
 
-                var modal_circle_name = document.getElementById("modal_circle_name");
-                modal_circle_name.innerHTML = `Circle Name - ${data[2]}`;
+              var modal_site_id = document.getElementById("modal_site_id");
+              modal_site_id.innerHTML = `Site ID - ${data[3]}`;
 
-                var modal_site_id = document.getElementById("modal_site_id");
-                modal_site_id.innerHTML = `Site ID - ${data[3]}`;
+              var modal_site_name = document.getElementById("modal_site_name");
+              modal_site_name.innerHTML = `Site Name - ${data[4]}`;
 
-                var modal_site_name = document.getElementById("modal_site_name");
-                modal_site_name.innerHTML = `Site Name - ${data[4]}`;
+              var modal_incident_date = document.getElementById(
+                "modal_incident_date"
+              );
+              modal_incident_date.innerHTML = `Incident Date - ${data[5]}`;
 
-                var modal_incident_date = document.getElementById("modal_incident_date");
-                modal_incident_date.innerHTML = `Incident Date - ${data[5]}`;
+              var modal_verified = document.getElementById("modal_verified");
+              modal_verified.innerHTML = `Verified - ${data[6]}`;
 
-                var modal_verified = document.getElementById("modal_verified");
-                modal_verified.innerHTML = `Verified - ${data[6]}`;
+              var modal_approved = document.getElementById("modal_approved");
+              modal_approved.innerHTML = `Approved - ${data[7]}`;
 
-                var modal_approved = document.getElementById("modal_approved");
-                modal_approved.innerHTML = `Approved - ${data[7]}`;
+              var modal_incident_type = document.getElementById(
+                "modal_incident_type"
+              );
+              modal_incident_type.innerHTML = `Incident Type - ${data[9]}`;
 
-                var modal_incident_type = document.getElementById("modal_incident_type");
-                modal_incident_type.innerHTML = `Incident Type - ${data[9]}`;
+              var modal_incident_cause = document.getElementById(
+                "modal_incident_cause"
+              );
+              modal_incident_cause.innerHTML = `Incident Cause - ${data[10]}`;
 
-                var modal_incident_cause = document.getElementById("modal_incident_cause");
-                modal_incident_cause.innerHTML = `Incident Cause - ${data[10]}`;
+              var modal_incident_description = document.getElementById(
+                "modal_incident_description"
+              );
+              modal_incident_description.innerHTML = `Incident Description - ${data[8]}`;
 
-                var modal_incident_description = document.getElementById("modal_incident_description");
-                modal_incident_description.innerHTML = `Incident Description - ${data[8]}`;
+              var modal_incident_action = document.getElementById(
+                "modal_incident_action"
+              );
+              modal_incident_action.innerHTML = `Incident Action - ${data[11]}`;
 
-                var modal_incident_action = document.getElementById("modal_incident_action");
-                modal_incident_action.innerHTML = `Incident Action - ${data[11]}`;
+              var modal_media = document.getElementById("modal_media");
 
-                var modal_media = document.getElementById("modal_media");
+              if (data[12] == null) {
+                modal_media.innerHTML = `Media - No Media`;
+              } else {
+                for (i in Object.values(JSON.parse(data[12]))) {
+                  image_url = Object.values(JSON.parse(data[12]))[i];
 
-                if (data[12] == null) {
-                  modal_media.innerHTML = `Media - No Media`;
-                } else {
-                  for (i in Object.values(JSON.parse(data[12]))) {
-                    image_url = Object.values(JSON.parse(data[12]))[i];
-
-                    modal_media.innerHTML += `<a href=${image_url} target="_blank">
+                  modal_media.innerHTML += `<a href=${image_url} target="_blank">
                     <img src=${image_url} alt="Incident Image" />
                   </a>`;
-
-                  }
                 }
-                
-              })
+              }
+            })
 
-              .catch((error) => {
-                console.log(error);
-              });
+            .catch((error) => {
+              console.log(error);
+            });
 
-            const modalID = document.getElementById("modalID");
+          const modalID = document.getElementById("modalID");
 
-            modalID.innerText = button.getAttribute("data-incidentID");
+          modalID.innerText = button.getAttribute("data-incidentID");
 
-            const main = document.getElementById("main");
-            main.classList.add("modal-active");
+          const main = document.getElementById("main");
+          main.classList.add("modal-active");
 
-            const aside = document.getElementById("aside");
-            aside.classList.add("modal-active");
-          });
+          const aside = document.getElementById("aside");
+          aside.classList.add("modal-active");
         });
+      });
     })
     .catch((error) => {
       console.log(error);
     });
-  console.log("Refreshed Data");
 }
 
 function hideLoader() {
