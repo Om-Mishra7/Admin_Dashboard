@@ -65,7 +65,7 @@ app.secret_key = "mysecrckmk;cm;etkey"  # To sign the user session cookies
 
 # Redis Session Configuration
 app.config['SESSION_TYPE'] = 'redis'
-app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_PERMANENT'] = True
 app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_COOKIE_NAME'] = 'X-Identity'
 app.config['SESSION_COOKIE_DOMAIN'] = '.projectrexa.ml'
