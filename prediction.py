@@ -2,31 +2,53 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
-from training_csv_generator import csv_generator
-import datetime
+import os
+import time
+import mysql.connector
+import time
+import os
+
+connection = mysql.connector.connect(
+    host='aws.connect.psdb.cloud',
+    user='hxajbpzbbegsei3k0dlc',
+    passwd='pscale_pw_FWRWtnJU7FMLgFFgDXPOEz5i76i3NLxNQRWxtvnQsMF',
+    db='trinity-crest_digitel',
+    autocommit=True,
+)
+
+cursor = connection.cursor()
+
+def csv_generator():
+    
+    cursor.execute("SELECT * FROM meter_reading_record;")
+    results = cursor.fetchall()
+
+    result_dict = {}
+    for result in results:
+        if result[2].strftime("%Y-%m-1") not in result_dict:
+            result_dict[result[2].strftime("%Y-%m-1")] = result[1]
+        else:
+            result_dict[result[2].strftime("%Y-%m-1")] += result[1]
+
+    with open('bill.csv', 'w') as f:
+        f.write("timestamp,electricity_bill\n")
+        for key in result_dict:
+            f.write(key + "," + str(result_dict[key]) + "\n")
 
 def prediction():
-    # Generate the CSV file
-    csv_generator()
 
+    # Generate the CSV file
+    if time.time() - os.path.getmtime('bill.csv') > 86400:
+        print("Generating CSV file...")
+        csv_generator()
+    
     # Read the CSV data
     data = pd.read_csv('bill.csv', parse_dates=['timestamp'], index_col='timestamp')
 
-    # Visualize the data
-    data.plot(figsize=(10, 6))
-    plt.xlabel('Timestamp')
-    plt.ylabel('Electricity Bill')
-    plt.title('Electricity Bill over Time')
-    plt.show()
-
     # Check the Autocorrelation and Partial Autocorrelation plots to identify model parameters
     plot_acf(data['electricity_bill'], lags=12)
-    plt.title('Autocorrelation Plot')
-    plt.show()
 
     plot_pacf(data['electricity_bill'], lags=12)
-    plt.title('Partial Autocorrelation Plot')
-    plt.show()
 
     # Fit the SARIMA model
     order = (1, 1, 1)           # (p, d, q)
@@ -44,5 +66,6 @@ def prediction():
     return (next_timestamp.month, int(next_mean))
 
 
+
 if __name__ == '__main__':
-    prediction()
+    print(prediction())
