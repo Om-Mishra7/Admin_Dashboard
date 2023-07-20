@@ -1,40 +1,86 @@
 const menubutton = document.getElementById("menu-button");
-
-const date = document.getElementById("date");
-
-const startDate = document.getElementById("start-date");
-
-const endDate = document.getElementById("end-date");
-
 const greetingText = document.getElementById("greeting-text");
+const profilePicture = document.getElementById("profile-picture");
+const userName = document.getElementById("user-name");
+const displayTimeRange = document.getElementById("display-time-range");
+const timeRange = document.getElementById("time-range");
 
-var currentDate = new Date();
+timeRange.addEventListener("change", refreshData);
 
-var unixStartDate = null;
+fetch("/api/v1/user/profile", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
+})
+  .then((response) => response.json())
+  .then((data) => {
+    profilePicture.setAttribute("src", data.profile_picture_url);
+    userName.innerHTML = data.user_name;
+  });
 
-date.valueAsDate = currentDate;
+function refreshData() {
+  displayTimeRange.innerHTML = `${timeRange.value} - ${
+    parseInt(timeRange.value) + 1
+  }`;
+  fetch(`/api/v1/meter-reading?year=${timeRange.value}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (timeRange.value == new Date().getFullYear()) {
+        meterReadingChart.data.datasets[0].data = data[0];
+        meterReadingChart.data.datasets[1].data = data[1];
+        meterReadingChart.update();
 
-date.max = new Date().toISOString().split("T")[0];
+        costPrimaryChart.data.labels = Object.keys(data[2]);
+        costPrimaryChart.data.datasets[0].data = Object.values(data[2]);
+        costPrimaryChart.update();
 
-date.addEventListener("change", refreshData);
+        consumptionByCircleData = []
+        for (let i = 0; i < Object.keys(data[3]).length; i++) {
+          consumptionByCircleData.push({"label": Object.keys(data[3])[i], "data": Object.values(data[3])[i]})
+        }
 
-endDate.innerText =
-  currentDate.getDate() +
-  "-" +
-  (currentDate.getMonth() + 1) +
-  "-" +
-  currentDate.getFullYear();
+        consumptionByCircleChart.data.labels = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"].slice(0, Object.values(data[3])[1].length);
+        consumptionByCircleChart.data.datasets = consumptionByCircleData;
+        ChartColor();
+        consumptionByCircleChart.update();
+      
+      }
+      else{
+        meterReadingChart.data.datasets[0].data = data[0];
+        meterReadingChart.data.datasets[1].data = data[0];
+        meterReadingChart.update();
 
-currentDate.setMonth(currentDate.getMonth() - 6);
+        costPrimaryChart.data.labels = Object.keys(data[1]);
+        costPrimaryChart.data.datasets[0].data = Object.values(data[1]);
+        costPrimaryChart.update();
 
-date.valueAsDate = currentDate;
+        consumptionByCircleData = []
+        for (let i = 0; i < Object.keys(data[2]).length; i++) {
+          consumptionByCircleData.push({"label": Object.keys(data[2])[i], "data": Object.values(data[2])[i]})
+        }
 
-startDate.innerText =
-  currentDate.getDate() +
-  "-" +
-  (currentDate.getMonth() + 1) +
-  "-" +
-  currentDate.getFullYear();
+        consumptionByCircleChart.data.labels = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"].slice(0, Object.values(data[2])[1].length);
+        consumptionByCircleChart.data.datasets = consumptionByCircleData;
+        ChartColor();
+        consumptionByCircleChart.update();
+      }
+      
+      
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+refreshData();
 
 document.querySelectorAll(".nav-link").forEach((link) => {
   if (link.href === window.location.href) {
@@ -70,6 +116,22 @@ copyButton.addEventListener("click", () => {
   }, 5000);
 });
 
+const exportButton = document.getElementById("export-button");
+
+exportButton.addEventListener("click", () => {
+  fetch(`/api/v1/export?year=${timeRange.value}&uri=incident-management`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.blob())
+    .then((blob) => {
+      download(blob, `Incident_Management_Report_${timeRange.value}.csv`);
+    });
+});
+
+
 menubutton.addEventListener("click", () => {
   const navbar = document.getElementById("navbar");
   if (navbar.classList.contains("opened")) {
@@ -84,31 +146,19 @@ menubutton.addEventListener("click", () => {
   }
 });
 
-function refreshData() {
-  console.log("Refreshing Data");
-  const date = document.getElementById("date").valueAsDate;
-  const startDate = document.getElementById("start-date");
-  startDate.innerText =
-    date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-  unixStartDate = date.getTime() / 1500;
-  console.log("Data Refreshed");
-}
-
 const customPalette = [
-  "#6929c4",
-  "#1192e8",
-  "#005d5d",
-  "#9f1853",
+  "#36a2eb",
+  "#ff6384",
+  "#4bc0c0",
+  "#ff9f40",
+  "#9966ff",
+  "#ffcd56",
+  "#c9cbcf",
+  "#003f5c",
+  "#a05195",
+  "#2f4b7c",
   "#fa4d56",
-  "#570408",
-  "#198038",
-  "#002d9c",
-  "#ee538b",
-  "#b28600",
-  "#009d9a",
-  "#012749",
-  "#012749",
-  "#a56eff",
+  "#ba4e00",
 ];
 
 const ctxmeterReadingPrimaryChart = document
@@ -136,22 +186,29 @@ greenGradient.addColorStop(1, "transparent");
 const meterReadingChart = new Chart(ctxmeterReadingPrimaryChart, {
   type: "line",
   data: {
-    labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG"],
+    labels: [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ],
     datasets: [
       {
-        label: "Predictive MR",
-        data: [66, 56, 78, 83, 55, 53, 45, 54],
-        borderColor: "rgb(4, 164, 148)",
-        boderWidth: 5,
-        backgroundColor: greenGradient,
+        label: "Actual MR",
+        data: [],
         fill: true,
       },
       {
-        label: "Actual MR",
-        data: [65, 59, 80, 81, 56, 55, 40],
-        borderColor: "rgb(44, 60, 132)",
-        boderWidth: 1,
-        backgroundColor: blueGradient,
+        label: "Predictive MR",
+        data: [],
         fill: true,
       },
     ],
@@ -163,7 +220,7 @@ const meterReadingChart = new Chart(ctxmeterReadingPrimaryChart, {
     },
     scales: {
       y: {
-        beginAtZero: false,
+        beginAtZero: true,
         grid: {
           display: true,
           drawBorder: false,
@@ -208,10 +265,12 @@ const costPrimaryChart = new Chart(
   {
     type: "doughnut",
     data: {
-      labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
+      labels: [
+
+      ],
       datasets: [
         {
-          data: [15, 20, 30, 40, 15, 10, 50],
+          data: [],
           label: "Cost Of Energy (INR)",
           borderRadius: 5,
           backgroundColor: customPalette,
@@ -251,48 +310,16 @@ const consumptionByCircleChart = new Chart(
   {
     type: "bar",
     data: {
-      labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
+      labels: [
+        "JAN",
+        "FEB",
+        "MAR",
+        "APR",
+        "MAY",
+        "JUN",
+        "JUL",
+      ],
       datasets: [
-        {
-          data: [15, 20, 30, 40, 15, 10, 50],
-          label: "GUJARAT",
-        },
-        {
-          data: [20, 30, 40, 50, 25, 20, 60],
-          label: "MAHARASHTRA",
-        },
-        {
-          data: [25, 40, 50, 60, 35, 30, 70],
-          label: "RAJASTHAN",
-        },
-        {
-          data: [30, 50, 60, 70, 45, 40, 80],
-          label: "MADHYA PRADESH",
-        },
-        {
-          data: [10,20, 50, 60, 35, 30, 70],
-          label: "UTTAR PRADESH",
-        },
-        {
-          data: [30, 50, 60, 70, 45, 40, 80],
-          label: "UTTARAKHAND",
-        },
-        {
-          data: [30, 50, 60, 70, 45, 40, 80],
-          label: "HARYANA",
-        },
-        {
-          data: [30, 50, 60, 70, 45, 40, 80],
-          label: "DELHI",
-        },
-        {
-          data: [30, 50, 60, 70, 45, 40, 80],
-          label: "PUNJAB",
-        },
-        {
-          data: [30, 50, 60, 70, 45, 40, 80],
-          label: "HIMACHAL PRADESH",
-        },
       ],
     },
     options: {
@@ -305,7 +332,7 @@ const consumptionByCircleChart = new Chart(
       },
       scales: {
         y: {
-          beginAtZero: false,
+          beginAtZero: true,
           grid: {
             display: true,
             drawBorder: false,
@@ -340,7 +367,7 @@ const consumptionByCircleChart = new Chart(
   }
 );
 
-function ChartColor(colorValue=0) {
+function ChartColor(colorValue = 0) {
   for (let i = 0; i < consumptionByCircleChart.data.datasets.length; i++) {
     console.log("colorValue", colorValue);
     if (colorValue >= customPalette.length) {
@@ -357,3 +384,15 @@ function ChartColor(colorValue=0) {
 }
 
 ChartColor();
+
+function hideLoader() {
+  const hide = document.querySelectorAll(".hide");
+  hide.forEach((element) => {
+    element.classList.remove("hide");
+  });
+
+  const loader = document.getElementById("loader");
+  loader.setAttribute("style", "display: none !important");
+}
+
+window.addEventListener("load", hideLoader);

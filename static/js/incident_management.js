@@ -74,6 +74,21 @@ menubutton.addEventListener("click", () => {
   }
 });
 
+const exportButton = document.getElementById("export-button");
+
+exportButton.addEventListener("click", () => {
+  fetch(`/api/v1/export?year=${timeRange.value}&uri=incident-management`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.blob())
+    .then((blob) => {
+      download(blob, `Incident_Management_Report_${timeRange.value}.csv`);
+    });
+});
+
 const modalOpenButton = document.querySelectorAll(".view-button");
 
 modalOpenButton.forEach((button) => {

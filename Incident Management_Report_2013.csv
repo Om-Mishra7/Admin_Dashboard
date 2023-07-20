@@ -1,0 +1,101 @@
+Incident ID,Employee Name,Circle Name,Site ID,Site Name,TimeStamp,Approved,Verified,Incident Description,Incident Type,Incident Cause,Incident Action,Repair Time
+4947,Alonso Mount,CHN,CHN003,CHN003,25/12/2013 13:24:02,No,No,An accident took place at the site location, resulting in injuries or property damage.,Unplanned,Accident,Repaired and replaced,28
+4946,Simeon Culbertson,DEL,DEL011,DEL011,23/12/2013 05:46:37,No,No,An accident took place at the site location, resulting in injuries or property damage.,Planned,Accident,Repaired,4
+4920,Brandt Fountain,MUM,MUM014,MUM014,17/12/2013 09:11:59,Yes,Yes,An accident took place at the site location, resulting in injuries or property damage.,Unplanned,Accident,Repaired, replaced, and temproarily fixed,38
+4927,Stephon Ash,PUN,PUN006,PUN006,11/12/2013 11:17:00,No,No,The site location was affected by a natural disaster, such as a hurricane, earthquake, or flood.,Unplanned,Natural Disaster,Repaired and replaced,45
+4963,Sheldon Creel,MUM,MUM025,MUM025,09/12/2013 14:30:29,No,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Planned,Power Outage,Repaired and temproarily fixed,45
+4930,Marion Biggs,DEL,DEL012,DEL012,30/11/2013 12:01:22,Yes,No,An incident occurred at the site location that is not covered by the other categories.,Planned,Other,Replaced and temproarily fixed,37
+4939,Giovanni MacDonald,KOL,KOL001,KOL001,25/11/2013 21:31:02,Yes,Yes,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Planned,Power Outage,Repaired, replaced, and temproarily fixed,21
+4967,Leon McCarty,DEL,DEL018,DEL018,23/11/2013 14:31:21,No,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Unplanned,Water Issue,Repaired and replaced,34
+4919,Niko Dodd,GUJ,GUJ004,GUJ004,18/11/2013 09:22:31,No,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Unplanned,Power Outage,Repaired and replaced,38
+4949,Rhys Oreilly,GUJ,GUJ009,GUJ009,16/11/2013 13:16:22,Yes,No,The site location was affected by a natural disaster, such as a hurricane, earthquake, or flood.,Unplanned,Natural Disaster,Repaired, replaced, and temproarily fixed,21
+4914,Kennedy Hand,PUN,PUN013,PUN013,14/11/2013 10:07:22,No,No,An accident took place at the site location, resulting in injuries or property damage.,Unplanned,Accident,Replaced and temproarily fixed,10
+4999,Humberto Levin,PUN,PUN019,PUN019,10/11/2013 10:52:28,No,No,The site location was affected by a natural disaster, such as a hurricane, earthquake, or flood.,Planned,Natural Disaster,Replaced,4
+4925,Ryley Selby,PUN,PUN028,PUN028,04/11/2013 04:46:04,No,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Planned,Power Outage,Repaired, replaced, and temproarily fixed,2
+4965,Tyshawn Palacios,MUM,MUM028,MUM028,20/10/2013 02:43:13,No,No,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Unplanned,Theft,Replaced,39
+4940,Axel Bostic,CHN,CHN029,CHN029,17/10/2013 02:25:24,No,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Unplanned,Power Outage,Repaired and replaced,29
+4966,Tayler Saldivar,GUJ,GUJ008,GUJ008,10/10/2013 00:58:31,Yes,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Planned,Power Outage,Replaced,23
+4991,Kody Karr,PUN,PUN023,PUN023,07/10/2013 14:06:36,No,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Planned,Water Issue,Replaced,54
+4971,Robert Chacon,CHN,CHN012,CHN012,04/10/2013 09:00:29,No,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Unplanned,Power Outage,Temproarily fixed,70
+4970,Anthony Pease,KOL,KOL013,KOL013,29/09/2013 13:08:50,No,No,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Planned,Theft,Repaired, replaced, and temproarily fixed,45
+4916,Shea Purvis,KOL,KOL006,KOL006,24/09/2013 17:07:48,No,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Unplanned,Water Issue,Repaired and temproarily fixed,62
+4978,Keegan Lumpkin,PUN,PUN020,PUN020,18/09/2013 11:36:01,Yes,Yes,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Planned,Theft,Repaired and temproarily fixed,71
+4993,Ty Piazza,KOL,KOL007,KOL007,12/09/2013 21:24:11,Yes,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Planned,Power Outage,Repaired and replaced,21
+4937,Kristian Hussain,DEL,DEL011,DEL011,08/09/2013 10:45:31,Yes,Yes,A fire broke out at the site location causing significant damage.,Unplanned,Fire,Temproarily fixed,10
+4953,Eric Jackson,MUM,MUM028,MUM028,06/09/2013 11:27:52,No,No,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Planned,Theft,Replaced,52
+4995,Ivan Helton,GUJ,GUJ017,GUJ017,03/09/2013 07:07:20,Yes,No,A fire broke out at the site location causing significant damage.,Unplanned,Fire,Replaced and temproarily fixed,70
+4928,Eliezer Hoppe,GUJ,GUJ021,GUJ021,24/08/2013 17:14:44,No,No,An accident took place at the site location, resulting in injuries or property damage.,Planned,Accident,Repaired and replaced,68
+4973,Menachem Burgos,CHN,CHN009,CHN009,22/08/2013 14:15:29,Yes,No,An accident took place at the site location, resulting in injuries or property damage.,Planned,Accident,Repaired and temproarily fixed,26
+4903,Augustus Hoang,MUM,MUM025,MUM025,21/08/2013 14:20:57,No,No,An incident occurred at the site location that is not covered by the other categories.,Unplanned,Other,Repaired, replaced, and temproarily fixed,59
+4924,Cedric Scherer,GUJ,GUJ021,GUJ021,16/08/2013 05:28:06,No,No,The site location was affected by a natural disaster, such as a hurricane, earthquake, or flood.,Unplanned,Natural Disaster,Repaired,34
+4984,Stephan Simpson,MUM,MUM022,MUM022,11/08/2013 07:09:30,No,No,An accident took place at the site location, resulting in injuries or property damage.,Unplanned,Accident,Repaired and temproarily fixed,8
+5000,Hugh Tran,KOL,KOL006,KOL006,07/08/2013 03:38:49,No,No,An accident took place at the site location, resulting in injuries or property damage.,Planned,Accident,Repaired,42
+4983,Kareem Whatley,MUM,MUM008,MUM008,05/08/2013 00:03:14,No,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Planned,Water Issue,Replaced and temproarily fixed,17
+4997,Britton Kuntz,PUN,PUN005,PUN005,04/08/2013 12:28:51,No,No,The site location was affected by a natural disaster, such as a hurricane, earthquake, or flood.,Unplanned,Natural Disaster,Replaced and temproarily fixed,27
+4974,Guy Chavarria,KOL,KOL017,KOL017,04/08/2013 07:33:18,Yes,No,The site location was vandalized, causing damage to the property or infrastructure.,Planned,Vandalism,Replaced and temproarily fixed,3
+4941,Cannon Gilbertson,CHN,CHN018,CHN018,04/08/2013 00:52:35,No,No,A fire broke out at the site location causing significant damage.,Unplanned,Fire,Repaired and replaced,17
+4959,Jaret Ramirez,PUN,PUN014,PUN014,03/08/2013 19:24:44,No,No,The site location was vandalized, causing damage to the property or infrastructure.,Unplanned,Vandalism,Repaired and replaced,57
+4936,Nelson Higgins,MUM,MUM010,MUM010,01/08/2013 12:36:37,No,No,A fire broke out at the site location causing significant damage.,Planned,Fire,Repaired, replaced, and temproarily fixed,19
+4979,Lamar Brumfield,CHN,CHN027,CHN027,31/07/2013 14:27:58,No,No,The site location was affected by a natural disaster, such as a hurricane, earthquake, or flood.,Unplanned,Natural Disaster,Repaired and replaced,23
+4904,Milton Bowie,PUN,PUN009,PUN009,31/07/2013 03:53:58,Yes,Yes,An incident occurred at the site location that is not covered by the other categories.,Unplanned,Other,Temproarily fixed,21
+4990,Colton Drake,GUJ,GUJ018,GUJ018,24/07/2013 19:00:34,No,No,A fire broke out at the site location causing significant damage.,Unplanned,Fire,Repaired,50
+4902,Solomon Stanton,GUJ,GUJ004,GUJ004,23/07/2013 16:06:20,Yes,Yes,An accident took place at the site location, resulting in injuries or property damage.,Unplanned,Accident,Repaired and temproarily fixed,20
+4944,Winston Allen,PUN,PUN006,PUN006,19/07/2013 12:26:57,No,No,The site location was affected by a natural disaster, such as a hurricane, earthquake, or flood.,Planned,Natural Disaster,Repaired and replaced,29
+4909,Skylar Aaron,KOL,KOL015,KOL015,18/07/2013 02:01:48,No,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Planned,Power Outage,Repaired and replaced,10
+4980,Tye Spaulding,KOL,KOL008,KOL008,15/07/2013 23:21:22,No,No,The site location was vandalized, causing damage to the property or infrastructure.,Unplanned,Vandalism,Replaced and temproarily fixed,47
+4992,Terrell Honeycutt,CHN,CHN013,CHN013,15/07/2013 04:07:14,No,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Unplanned,Water Issue,Temproarily fixed,72
+4981,Kolby Gough,MUM,MUM008,MUM008,12/07/2013 09:04:41,Yes,No,The site location was vandalized, causing damage to the property or infrastructure.,Planned,Vandalism,Repaired,40
+4905,Milan Robinson,KOL,KOL027,KOL027,10/07/2013 06:42:01,Yes,Yes,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Unplanned,Theft,Repaired, replaced, and temproarily fixed,2
+4958,Jevon Humphrey,PUN,PUN016,PUN016,08/07/2013 00:53:35,Yes,Yes,The site location was affected by a natural disaster, such as a hurricane, earthquake, or flood.,Planned,Natural Disaster,Replaced,50
+4915,Abram Burke,DEL,DEL019,DEL019,05/07/2013 11:24:21,Yes,Yes,The site location was affected by a natural disaster, such as a hurricane, earthquake, or flood.,Unplanned,Natural Disaster,Repaired,42
+4994,Simeon Culbertson,MUM,MUM010,MUM010,29/06/2013 02:59:45,No,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Planned,Power Outage,Replaced and temproarily fixed,70
+4975,Markell Casey,GUJ,GUJ012,GUJ012,27/06/2013 06:58:00,Yes,Yes,A fire broke out at the site location causing significant damage.,Unplanned,Fire,Temproarily fixed,26
+4952,Mariano McDonnell,KOL,KOL011,KOL011,27/06/2013 00:50:38,Yes,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Unplanned,Water Issue,Repaired and temproarily fixed,55
+4907,Ernest Borges,CHN,CHN008,CHN008,22/06/2013 07:53:44,Yes,Yes,A fire broke out at the site location causing significant damage.,Planned,Fire,Repaired, replaced, and temproarily fixed,1
+4913,Jayce Rodriguez,CHN,CHN023,CHN023,18/06/2013 06:45:10,No,No,The site location was affected by a natural disaster, such as a hurricane, earthquake, or flood.,Planned,Natural Disaster,Replaced,46
+4955,Maximilian Rand,MUM,MUM026,MUM026,14/06/2013 06:10:01,No,No,The site location was vandalized, causing damage to the property or infrastructure.,Unplanned,Vandalism,Repaired and replaced,12
+4943,Jaquan Witt,GUJ,GUJ022,GUJ022,13/06/2013 13:57:32,Yes,Yes,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Unplanned,Theft,Repaired and temproarily fixed,22
+4977,Santiago Greenberg,KOL,KOL025,KOL025,07/06/2013 23:13:02,Yes,No,An accident took place at the site location, resulting in injuries or property damage.,Unplanned,Accident,Repaired, replaced, and temproarily fixed,48
+4962,Trey Stringer,KOL,KOL021,KOL021,07/06/2013 09:55:23,No,No,The site location was vandalized, causing damage to the property or infrastructure.,Planned,Vandalism,Repaired and temproarily fixed,44
+4929,Simeon Dougherty,DEL,DEL004,DEL004,28/05/2013 13:54:23,Yes,No,An accident took place at the site location, resulting in injuries or property damage.,Planned,Accident,Repaired, replaced, and temproarily fixed,72
+4912,Jevon Humphrey,KOL,KOL024,KOL024,26/05/2013 01:04:07,Yes,Yes,A fire broke out at the site location causing significant damage.,Unplanned,Fire,Repaired, replaced, and temproarily fixed,52
+4986,Roland Good,MUM,MUM028,MUM028,21/05/2013 18:48:20,No,No,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Unplanned,Theft,Replaced and temproarily fixed,40
+4908,Cade Gallegos,KOL,KOL010,KOL010,18/05/2013 15:20:59,Yes,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Unplanned,Water Issue,Replaced and temproarily fixed,23
+4988,John Littlejohn,MUM,MUM027,MUM027,18/05/2013 13:25:03,Yes,Yes,A fire broke out at the site location causing significant damage.,Planned,Fire,Repaired and replaced,31
+4976,Albert Duggan,CHN,CHN003,CHN003,15/05/2013 03:51:07,No,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Planned,Water Issue,Replaced and temproarily fixed,42
+4917,Nicholas Carlos,KOL,KOL011,KOL011,13/05/2013 09:08:18,No,No,A fire broke out at the site location causing significant damage.,Planned,Fire,Repaired and temproarily fixed,14
+4935,Braulio Cave,MUM,MUM009,MUM009,11/05/2013 07:49:12,Yes,Yes,The site location was vandalized, causing damage to the property or infrastructure.,Unplanned,Vandalism,Replaced and temproarily fixed,43
+5001,Rodrigo Browning,PUN,PUN028,PUN028,05/05/2013 17:30:54,No,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Unplanned,Power Outage,Temproarily fixed,22
+4918,Ray Darby,CHN,CHN003,CHN003,05/05/2013 03:16:52,Yes,No,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Unplanned,Theft,Repaired, replaced, and temproarily fixed,43
+4906,Lamar Brumfield,PUN,PUN010,PUN010,01/05/2013 23:35:48,No,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Unplanned,Power Outage,Replaced,2
+4951,Albert Duggan,GUJ,GUJ025,GUJ025,30/04/2013 14:13:50,Yes,No,The site location was vandalized, causing damage to the property or infrastructure.,Planned,Vandalism,Repaired and temproarily fixed,66
+4950,Willis Byler,CHN,CHN006,CHN006,26/04/2013 15:03:28,Yes,No,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Unplanned,Theft,Repaired, replaced, and temproarily fixed,27
+4911,Jaylon Burke,GUJ,GUJ007,GUJ007,25/04/2013 05:24:58,No,No,The site location was vandalized, causing damage to the property or infrastructure.,Planned,Vandalism,Repaired, replaced, and temproarily fixed,3
+4934,Denis Swan,GUJ,GUJ026,GUJ026,14/04/2013 09:12:51,No,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Planned,Power Outage,Replaced and temproarily fixed,47
+4931,Kamren Nugent,CHN,CHN008,CHN008,12/04/2013 14:17:21,Yes,Yes,The site location experienced a water supply issue, leading to disruptions in the facility.,Unplanned,Water Issue,Repaired, replaced, and temproarily fixed,9
+4942,Leon Downey,CHN,CHN025,CHN025,11/04/2013 14:01:21,No,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Planned,Water Issue,Repaired and replaced,44
+4998,Sebastian Roper,PUN,PUN017,PUN017,09/04/2013 13:47:24,Yes,No,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Unplanned,Theft,Replaced and temproarily fixed,18
+4922,Cullen Nesbitt,PUN,PUN022,PUN022,06/04/2013 04:08:53,No,No,An incident occurred at the site location that is not covered by the other categories.,Unplanned,Other,Replaced,62
+4945,Tavion Lopez,PUN,PUN007,PUN007,03/04/2013 17:31:55,No,No,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Unplanned,Theft,Repaired and temproarily fixed,51
+4972,Shelton Carden,KOL,KOL024,KOL024,03/04/2013 15:56:23,Yes,Yes,An incident occurred at the site location that is not covered by the other categories.,Unplanned,Other,Replaced,8
+4933,Drew Foss,PUN,PUN016,PUN016,22/03/2013 01:00:52,Yes,Yes,An accident took place at the site location, resulting in injuries or property damage.,Unplanned,Accident,Repaired, replaced, and temproarily fixed,27
+4923,Yehuda Gay,PUN,PUN008,PUN008,21/03/2013 08:03:16,Yes,No,The site location was vandalized, causing damage to the property or infrastructure.,Unplanned,Vandalism,Replaced and temproarily fixed,11
+4969,Bilal Daniels,MUM,MUM013,MUM013,17/03/2013 10:42:22,No,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Planned,Water Issue,Repaired and temproarily fixed,10
+4996,Luca McNally,DEL,DEL029,DEL029,14/03/2013 22:37:44,Yes,No,An incident occurred at the site location that is not covered by the other categories.,Unplanned,Other,Replaced and temproarily fixed,3
+4910,Darian Quiroz,MUM,MUM006,MUM006,10/03/2013 09:17:09,No,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Unplanned,Water Issue,Repaired and temproarily fixed,61
+4968,Vance Doss,KOL,KOL018,KOL018,06/03/2013 21:36:06,Yes,Yes,The site location was vandalized, causing damage to the property or infrastructure.,Unplanned,Vandalism,Repaired, replaced, and temproarily fixed,12
+4948,Chester Coats,DEL,DEL009,DEL009,26/02/2013 14:14:09,No,No,A fire broke out at the site location causing significant damage.,Planned,Fire,Replaced,35
+4926,Federico Desimone,GUJ,GUJ028,GUJ028,20/02/2013 12:47:30,Yes,Yes,The site location was vandalized, causing damage to the property or infrastructure.,Unplanned,Vandalism,Repaired and replaced,45
+4938,Marcanthony Redden,CHN,CHN016,CHN016,13/02/2013 19:25:08,No,No,The site location experienced a water supply issue, leading to disruptions in the facility.,Planned,Water Issue,Repaired,60
+4964,Alden Caraballo,GUJ,GUJ006,GUJ006,12/02/2013 14:14:18,Yes,Yes,An incident occurred at the site location that is not covered by the other categories.,Unplanned,Other,Replaced and temproarily fixed,38
+4921,Theodore Post,MUM,MUM017,MUM017,09/02/2013 16:48:15,Yes,Yes,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Unplanned,Theft,Temproarily fixed,44
+4960,Fredy Campos,GUJ,GUJ009,GUJ009,04/02/2013 01:47:03,No,No,An incident occurred at the site location that is not covered by the other categories.,Planned,Other,Repaired and replaced,9
+4957,Nicolas Hargis,KOL,KOL026,KOL026,31/01/2013 15:12:22,Yes,Yes,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Unplanned,Power Outage,Repaired, replaced, and temproarily fixed,13
+4982,Semaj Leblanc,PUN,PUN002,PUN002,31/01/2013 12:58:34,Yes,No,An accident took place at the site location, resulting in injuries or property damage.,Planned,Accident,Replaced,71
+4932,Kylan Dillard,GUJ,GUJ019,GUJ019,24/01/2013 07:55:08,Yes,No,An accident took place at the site location, resulting in injuries or property damage.,Planned,Accident,Replaced,61
+4989,Nicolas Cooney,GUJ,GUJ012,GUJ012,22/01/2013 05:56:30,Yes,No,The site location was affected by a natural disaster, such as a hurricane, earthquake, or flood.,Planned,Natural Disaster,Repaired,70
+4985,Damian Lyons,KOL,KOL024,KOL024,21/01/2013 13:47:03,Yes,No,The site location was vandalized, causing damage to the property or infrastructure.,Unplanned,Vandalism,Repaired, replaced, and temproarily fixed,58
+4956,Holden Chaney,CHN,CHN010,CHN010,18/01/2013 14:02:48,No,No,There was a power outage at the site location, resulting in a temporary shutdown of operations.,Unplanned,Power Outage,Replaced,53
+4954,Kenneth Stiles,PUN,PUN022,PUN022,16/01/2013 05:39:22,No,No,An incident of theft occurred at the site location, resulting in loss of valuable equipment or materials.,Unplanned,Theft,Repaired,53
+4961,Jair Cavanaugh,GUJ,GUJ029,GUJ029,07/01/2013 03:58:15,Yes,No,An accident took place at the site location, resulting in injuries or property damage.,Unplanned,Accident,Replaced,9
+4987,Isaac Berg,CHN,CHN009,CHN009,01/01/2013 11:08:14,Yes,No,A fire broke out at the site location causing significant damage.,Planned,Fire,Repaired and temproarily fixed,54

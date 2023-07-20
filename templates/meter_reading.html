@@ -9,10 +9,15 @@
     <link rel="stylesheet" href="/static/css/meter_reading.css" />
     <link rel="icon" href="/static/images/logo.svg" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js" defer></script>
     <script src="/static/js/meter_reading.js" defer></script>
   </head>
-  <body class="light">
-    <aside id="aside">
+  <body class="primary">
+    <div id="loader">
+      <div id="box"></div>
+      <div id="hill"></div>
+    </div>
+    <aside id="aside" class="hide">
       <nav class="navbar opened" id="navbar">
         <ul class="navbar-nav">
           <li class="nav-item" id="menu-flip">
@@ -205,20 +210,24 @@
       </nav>
     </aside>
 
-    <main id="main">
+    <main id="main" class="hide">
       <navbar class="top-navbar">
         <ul class="top-navbar-nav">
           <li class="top-nav-item no-mobile" id="greeting">
             <p class="faded-text no-mobile">
               <span id="greeting-text" class="no-mobile">Good Morning,</span
-              ><span class="highlighted-text no-mobile"> Om Mishra</span>
+              ><span class="highlighted-text no-mobile" id="user-name"></span>
             </p>
             <p class="faded-text-small no-mobile">
               Be more productive with actionable insights and tools
             </p>
           </li>
           <li class="top-nav-item">
-            <input type="date" name="time-period" id="date" />
+            <select id="time-range">
+              {% for year in year_array %}
+              <option value="{{ year }}">{{ year }}-{{ year + 1 }}</option>
+              {% endfor %}
+            </select>
           </li>
           <li class="top-nav-item">
             <img
@@ -235,8 +244,7 @@
       <section class="topbar">
         <p class="no-mobile">
           The report encompasses data from
-          <span class="time-range" id="start-date">1st of January 2021</span> to
-          <span class="time-range" id="end-date">31st of January 2021</span>
+          <span class="time-range" id="display-time-range"></span>
         </p>
         <button id="copy-button">
           <svg
