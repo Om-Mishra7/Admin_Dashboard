@@ -119,7 +119,7 @@ copyButton.addEventListener("click", () => {
 const exportButton = document.getElementById("export-button");
 
 exportButton.addEventListener("click", () => {
-  fetch(`/api/v1/export?year=${timeRange.value}&uri=incident-management`, {
+  fetch(`/api/v1/export?year=${timeRange.value}&uri=meter-reading`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -127,7 +127,7 @@ exportButton.addEventListener("click", () => {
   })
     .then((response) => response.blob())
     .then((blob) => {
-      download(blob, `Incident_Management_Report_${timeRange.value}.csv`);
+      download(blob, `Meter_Reading_Report_${timeRange.value}.csv`);
     });
 });
 
@@ -369,15 +369,12 @@ const consumptionByCircleChart = new Chart(
 
 function ChartColor(colorValue = 0) {
   for (let i = 0; i < consumptionByCircleChart.data.datasets.length; i++) {
-    console.log("colorValue", colorValue);
     if (colorValue >= customPalette.length) {
       colorValue = colorValue - customPalette.length;
     }
 
     consumptionByCircleChart.data.datasets[i].backgroundColor =
       customPalette[colorValue];
-    console.log(consumptionByCircleChart.data.datasets[i].backgroundColor);
-    console.log(customPalette[colorValue]);
     consumptionByCircleChart.update();
     colorValue++;
   }

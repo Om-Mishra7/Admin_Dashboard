@@ -200,7 +200,6 @@ const incidentPrimaryChart = new Chart(
 
 function ChartColor(colorValue = 0) {
   for (let i = 0; i < incidentPrimaryChart.data.datasets.length; i++) {
-    console.log("colorValue", colorValue);
     if (colorValue >= customPalette.length) {
       colorValue = colorValue - customPalette.length;
     }
