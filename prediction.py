@@ -2,17 +2,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
-import os
 import time
 import mysql.connector
 import time
 import os
+from dotenv import load_dotenv
+
+load_dotenv(".env")  # Load environment variables from .env file
+
 
 connection = mysql.connector.connect(
-    host='aws.connect.psdb.cloud',
-    user='hxajbpzbbegsei3k0dlc',
-    passwd='pscale_pw_FWRWtnJU7FMLgFFgDXPOEz5i76i3NLxNQRWxtvnQsMF',
-    db='trinity-crest_digitel',
+    host="aws.connect.psdb.cloud",
+    user=os.getenv("planetscale_username"),
+    passwd=os.getenv("planetscale_password"),
+    db=os.getenv("planetscale_db"),
     autocommit=True,
 )
 
@@ -63,7 +66,7 @@ def prediction():
     next_prediction = results.get_prediction(start=next_timestamp, dynamic=False)
     next_mean = next_prediction.predicted_mean[0]
 
-    
+
 
     return (next_timestamp.month, int(next_mean))
 
