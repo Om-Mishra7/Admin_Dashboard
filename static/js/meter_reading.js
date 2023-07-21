@@ -4,6 +4,9 @@ const profilePicture = document.getElementById("profile-picture");
 const userName = document.getElementById("user-name");
 const displayTimeRange = document.getElementById("display-time-range");
 const timeRange = document.getElementById("time-range");
+const currentHour = new Date().getHours();
+const copyButton = document.getElementById("copy-button");
+const exportButton = document.getElementById("export-button");
 
 timeRange.addEventListener("change", refreshData);
 
@@ -80,8 +83,6 @@ function refreshData() {
     });
 }
 
-refreshData();
-
 document.querySelectorAll(".nav-link").forEach((link) => {
   if (link.href === window.location.href) {
     link.parentElement.classList.add("active");
@@ -89,7 +90,6 @@ document.querySelectorAll(".nav-link").forEach((link) => {
   }
 });
 
-const currentHour = new Date().getHours();
 
 if (currentHour < 12) {
   greetingText.innerText = "Good Morning , ";
@@ -105,7 +105,6 @@ if (window.localStorage.getItem("navbar") === "closed") {
   navbar.classList.add("closed");
 }
 
-const copyButton = document.getElementById("copy-button");
 
 copyButton.addEventListener("click", () => {
   navigator.clipboard.writeText(window.location.href);
@@ -116,7 +115,6 @@ copyButton.addEventListener("click", () => {
   }, 5000);
 });
 
-const exportButton = document.getElementById("export-button");
 
 exportButton.addEventListener("click", () => {
   fetch(`/api/v1/export?year=${timeRange.value}&uri=meter-reading`, {
@@ -392,4 +390,5 @@ function hideLoader() {
   loader.setAttribute("style", "display: none !important");
 }
 
+refreshData();
 window.addEventListener("load", hideLoader);

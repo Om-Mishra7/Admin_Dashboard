@@ -313,6 +313,7 @@ def meter_reading_api():
                     )
 
                     prediction_result = prediction()
+                    
                     predicted_monthly_bill_distribution[
                         prediction_result[0] - 1
                     ] = prediction_result[1]

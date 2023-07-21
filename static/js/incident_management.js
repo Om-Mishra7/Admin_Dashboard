@@ -1,14 +1,18 @@
 const menubutton = document.getElementById("menu-button");
-
 const profilePicture = document.getElementById("profile-picture");
-
 const userName = document.getElementById("user-name");
-
 const timeRange = document.getElementById("time-range");
-
 const displayTimeRange = document.getElementById("display-time-range");
-
 const greetingText = document.getElementById("greeting-text");
+const currentHour = new Date().getHours();
+const copyButton = document.getElementById("copy-button");
+const exportButton = document.getElementById("export-button");
+const modalOpenButton = document.querySelectorAll(".view-button");
+const modalCloseButton = document.getElementById("modal-close-button");
+const modal = document.getElementById("modal");
+
+
+
 
 var dataset = []; // For Incident Primary Chart
 
@@ -24,8 +28,6 @@ fetch("/api/v1/user/profile", {
     userName.innerHTML = data.user_name;
   });
 
-refreshData();
-
 document.querySelectorAll(".nav-link").forEach((link) => {
   if (link.href === window.location.href) {
     link.parentElement.classList.add("active");
@@ -33,7 +35,6 @@ document.querySelectorAll(".nav-link").forEach((link) => {
   }
 });
 
-const currentHour = new Date().getHours();
 
 if (currentHour < 12) {
   greetingText.innerText = "Good Morning , ";
@@ -49,7 +50,6 @@ if (window.localStorage.getItem("navbar") === "closed") {
   navbar.classList.add("closed");
 }
 
-const copyButton = document.getElementById("copy-button");
 
 copyButton.addEventListener("click", () => {
   navigator.clipboard.writeText(window.location.href);
@@ -74,7 +74,6 @@ menubutton.addEventListener("click", () => {
   }
 });
 
-const exportButton = document.getElementById("export-button");
 
 exportButton.addEventListener("click", () => {
   fetch(`/api/v1/export?year=${timeRange.value}&uri=incident-management`, {
@@ -89,7 +88,6 @@ exportButton.addEventListener("click", () => {
     });
 });
 
-const modalOpenButton = document.querySelectorAll(".view-button");
 
 modalOpenButton.forEach((button) => {
   button.addEventListener("click", () => {
@@ -106,10 +104,6 @@ modalOpenButton.forEach((button) => {
     aside.classList.add("modal-active");
   });
 });
-
-const modalCloseButton = document.getElementById("modal-close-button");
-
-const modal = document.getElementById("modal");
 
 modalCloseButton.addEventListener("click", () => {
   modal.classList.remove("active");
@@ -503,5 +497,7 @@ function hideLoader() {
   const loader = document.getElementById("loader");
   loader.setAttribute("style", "display: none !important");
 }
+
+refreshData();
 
 window.addEventListener("load", hideLoader);

@@ -63,6 +63,8 @@ def prediction():
     next_prediction = results.get_prediction(start=next_timestamp, dynamic=False)
     next_mean = next_prediction.predicted_mean[0]
 
+    
+
     return (next_timestamp.month, int(next_mean))
 
 
