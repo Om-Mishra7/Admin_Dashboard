@@ -4,5 +4,4 @@ redis
 Flask-Session
 bcrypt
 statsmodels
-matplotlib
 pandas
