@@ -1,5 +1,4 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 import time
@@ -41,8 +40,10 @@ def csv_generator():
 def prediction():
 
     # Generate the CSV file
-    if time.time() - os.path.getmtime('bill.csv') > 86400:
-        print("Generating CSV file...")
+    if os.path.exists('bill.csv'):
+        if time.time() - os.path.getmtime('bill.csv') > 86400:
+            csv_generator()
+    else:
         csv_generator()
     
     # Read the CSV data
