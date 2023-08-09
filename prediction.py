@@ -4,6 +4,9 @@ from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 import time
 import mysql.connector
 import os
+from dotenv import load_dotenv
+
+load_dotenv(".env")  # Load environment variables from .env file
 
 connection = mysql.connector.connect(
     host="aws.connect.psdb.cloud",

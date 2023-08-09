@@ -5,3 +5,4 @@ Flask-Session
 bcrypt
 statsmodels
 pandas
+python-dotenv
