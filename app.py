@@ -17,7 +17,7 @@ import mysql.connector
 import redis
 from datetime import datetime
 from prediction import prediction
-from helper_functions import verify_password, generate_year_array, sort_month_wise
+from helper_functions import verify_password, generate_year_array, sort_month_wise, hash_password
 import os
 from dotenv import load_dotenv
 
@@ -75,8 +75,9 @@ def add_header(response):
 @app.route("/dashboard")
 def home():
     if session.get("logged_in"):
-        response = make_response(redirect(url_for("incident_management")), 200)
+        response = make_response(redirect(url_for("incident_management")), 302)
         return response
+    return make_response(redirect(url_for("login")), 302)
 
 
 @app.route("/incident-management")
@@ -152,19 +153,29 @@ def login():
                 return response
 
     if session.get("logged_in"):
-        response = make_response(redirect(url_for("incident_management")), 200)
+        response = make_response(redirect(url_for("incident_management")), 302)
         return response
 
     response = make_response(render_template("login.html"), 200)
     return response
 
+@app.route('/register', methods=['GET'])
+def register():
+    username = request.args.get('username')
+    request.args.get('password')
+    email = request.args.get('email')
+    circle = request.args.get('circle')
+    role = request.args.get('role')
+    hashed_password, salt = hash_password(request.args.get('password'))
+    cursor.execute("INSERT INTO user_data (user_name, user_password, user_salt, user_email, user_circle, user_role) VALUES (%s, %s, %s, %s, %s, %s);", (username, hashed_password, salt, email, circle, role))
+    return redirect("/admin") 
 
 @app.route("/logout")
 def logout():
     if session.get("logged_in"):
         session.clear()
 
-    response = make_response(redirect(url_for("login")), 200)
+    response = make_response(redirect(url_for("login")), 302)
     return response
 
 
@@ -494,5 +505,5 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="443")
+    app.run(host="0.0.0.0")
 
