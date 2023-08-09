@@ -56,6 +56,8 @@ connection = mysql.connector.connect(
 
 cursor = connection.cursor()
 
+cursor.execute('set max_allowed_packet=67108864')
+
 
 @app.after_request
 def add_header(response):
