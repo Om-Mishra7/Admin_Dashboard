@@ -2,7 +2,6 @@ import pandas as pd
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 import time
-import matplotlib
 import mysql.connector
 import os
 
