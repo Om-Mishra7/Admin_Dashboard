@@ -7,3 +7,4 @@ statsmodels
 pandas
 matplotlib
 python-dotenv
+waitress

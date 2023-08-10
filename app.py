@@ -1,11 +1,13 @@
-
 import copy
+from datetime import datetime
+import os
+import redis
+from dotenv import load_dotenv
 from flask import (
     Flask,
     jsonify,
     redirect,
     render_template,
-    request,
     url_for,
     request,
     session,
@@ -14,12 +16,10 @@ from flask import (
 )
 from flask_session import Session
 import mysql.connector
-import redis
-from datetime import datetime
 from prediction import prediction
 from helper_functions import verify_password, generate_year_array, sort_month_wise, hash_password
-import os
-from dotenv import load_dotenv
+from waitress import serve
+
 
 load_dotenv(".env")  # Load environment variables from .env file
 
@@ -100,7 +100,8 @@ def incident_management():
 def meter_reading():
     if session.get("logged_in"):
         response = make_response(
-            render_template("meter_reading.html", year_array=generate_year_array()), 200
+            render_template("meter_reading.html",
+                            year_array=generate_year_array()), 200
         )
         return response
 
@@ -112,7 +113,8 @@ def login():
     if request.method == "POST":
 
         if session.get("logged_in"):
-            response = make_response(jsonify({"message": "Already logged in"}), 200)
+            response = make_response(
+                jsonify({"message": "Already logged in"}), 200)
             return response
 
         request_query_result = request.get_json()
@@ -145,7 +147,8 @@ def login():
                 session["email"] = email
                 session["profile_picture_url"] = user_query_result[3]
                 session["logged_in"] = True
-                response = make_response(jsonify({"message": "Login successful"}), 200)
+                response = make_response(
+                    jsonify({"message": "Login successful"}), 200)
                 return response
 
             else:
@@ -161,6 +164,7 @@ def login():
     response = make_response(render_template("login.html"), 200)
     return response
 
+
 @app.route('/register', methods=['GET'])
 def register():
     username = request.args.get('username')
@@ -169,8 +173,10 @@ def register():
     circle = request.args.get('circle')
     role = request.args.get('role')
     hashed_password, salt = hash_password(request.args.get('password'))
-    cursor.execute("INSERT INTO user_data (user_name, user_password, user_salt, user_email, user_circle, user_role) VALUES (%s, %s, %s, %s, %s, %s);", (username, hashed_password, salt, email, circle, role))
-    return redirect("/admin") 
+    cursor.execute("INSERT INTO user_data (user_name, user_password, user_salt, user_email, user_circle, user_role) VALUES (%s, %s, %s, %s, %s, %s);",
+                   (username, hashed_password, salt, email, circle, role))
+    return redirect("/admin")
+
 
 @app.route("/logout")
 def logout():
@@ -198,7 +204,8 @@ def incident_management_api():
                 )
                 query_result = cursor.fetchall()
 
-                query_result = sorted(query_result, key=lambda x: x[5], reverse=True)
+                query_result = sorted(
+                    query_result, key=lambda x: x[5], reverse=True)
 
                 for result in query_result:
                     if result[2] not in circles:
@@ -217,7 +224,8 @@ def incident_management_api():
 
                 response = make_response(
                     jsonify(
-                        query_result, mean_time_to_repair, sort_month_wise(query_result)
+                        query_result, mean_time_to_repair, sort_month_wise(
+                            query_result)
                     ),
                     200,
                 )
@@ -225,7 +233,8 @@ def incident_management_api():
 
             except Exception as e:
                 response = make_response(
-                    jsonify({"error": "Invalid request", "error_message": str(e)}), 400
+                    jsonify({"error": "Invalid request",
+                            "error_message": str(e)}), 400
                 )
                 return response
 
@@ -242,14 +251,17 @@ def incident_management_api_id(id):
 
         if not id.isdigit():
 
-            response = make_response(jsonify({"error": "Invalid incident id"}), 400)
+            response = make_response(
+                jsonify({"error": "Invalid incident id"}), 400)
             return response
-        cursor.execute("SELECT * FROM incident_records WHERE incident_id = %s;", (id,))
+        cursor.execute(
+            "SELECT * FROM incident_records WHERE incident_id = %s;", (id,))
         query_result = cursor.fetchone()
 
         if query_result is None:
 
-            response = make_response(jsonify({"error": "Invalid incident id"}), 400)
+            response = make_response(
+                jsonify({"error": "Invalid incident id"}), 400)
             return response
 
         response = make_response(jsonify(query_result), 200)
@@ -270,12 +282,14 @@ def meter_reading_api():
                     "SELECT * FROM meter_reading_record WHERE timestamp > %s AND timestamp < %s ORDER BY timestamp DESC;",
                     (
                         datetime.strptime(request.args.get("year"), "%Y"),
-                        datetime.strptime(str(int(request.args.get("year")) + 1), "%Y"),
+                        datetime.strptime(
+                            str(int(request.args.get("year")) + 1), "%Y"),
                     ),
                 )
                 query_result = cursor.fetchall()
 
-                monthly_bill_distribution = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                monthly_bill_distribution = [
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 for result in query_result:
                     monthly_bill_distribution[result[2].month - 1] += result[1]
 
@@ -314,7 +328,8 @@ def meter_reading_api():
 
                 for circle in monthwise_circle_distribution:
                     monthwise_circle_distribution[circle] = list(
-                        filter(lambda a: a != 0, monthwise_circle_distribution[circle])
+                        filter(lambda a: a != 0,
+                               monthwise_circle_distribution[circle])
                     )
 
                 if (
@@ -326,7 +341,7 @@ def meter_reading_api():
                     )
 
                     prediction_result = prediction()
-                    
+
                     predicted_monthly_bill_distribution[
                         prediction_result[0] - 1
                     ] = prediction_result[1]
@@ -336,7 +351,8 @@ def meter_reading_api():
                     )
 
                     predicted_monthly_bill_distribution = list(
-                        filter(lambda a: a != 0, predicted_monthly_bill_distribution)
+                        filter(lambda a: a != 0,
+                               predicted_monthly_bill_distribution)
                     )
 
                     response = make_response(
@@ -345,7 +361,7 @@ def meter_reading_api():
                             predicted_monthly_bill_distribution,
                             circle_bill_distribution,
                             monthwise_circle_distribution
-                            
+
                         ),
                         200,
                     )
@@ -368,7 +384,8 @@ def meter_reading_api():
             except Exception as e:
                 print(e)
                 response = make_response(
-                    jsonify({"error": "Invalid request", "error_message": str(e)}), 400
+                    jsonify({"error": "Invalid request",
+                            "error_message": str(e)}), 400
                 )
                 return response
 
@@ -490,7 +507,8 @@ def export_api():
 
             except Exception as e:
                 response = make_response(
-                    jsonify({"error": "Invalid request", "error_message": str(e)}), 400
+                    jsonify({"error": "Invalid request",
+                            "error_message": str(e)}), 400
                 )
                 return response
 
@@ -507,5 +525,4 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
-
+    serve(app, host='0.0.0.0', port=000)
