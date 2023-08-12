@@ -184,6 +184,7 @@ def logout():
         session.clear()
 
     response = make_response(redirect(url_for("login")), 302)
+    response.delete_cookie("X-Identity")
     return response
 
 
@@ -525,4 +526,4 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    serve(app, host='0.0.0.0', port=000)
+    serve(app, host='0.0.0.0', port=5000)
