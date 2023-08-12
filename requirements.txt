@@ -1,0 +1,10 @@
+flask
+mysql-connector-python
+redis
+Flask-Session
+bcrypt
+statsmodels
+pandas
+matplotlib
+python-dotenv
+waitress

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Incident Management</title>
+    <meta name="description" content="Incident Management" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/static/css/incident_management.css" />
+    <link rel="icon" href="/static/images/logo.svg" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      defer
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js" defer></script>
+    <script src="/static/js/incident_management.js" defer></script>
+  </head>
+  <body class="primary">
+    <div id="loader">
+      <div id="box"></div>
+      <div id="hill"></div>
+    </div>
+    <aside id="aside" class="hide">
+      <nav class="navbar opened" id="navbar">
+        <ul class="navbar-nav">
+          <li class="nav-item" id="menu-flip">
+            <a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                id="menu-button"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="M103-212v-94h754v94H103Zm0-221v-94h754v94H103Zm0-221v-95h754v95H103Z"
+                />
+              </svg>
+              <span class="link-text"
+                ><img
+                  src="/static/images/logo.svg"
+                  width="100px"
+                  alt="Crest Digitel Logo"
+              /></span>
+            </a>
+          </li>
+          <li class="nav-item" id="admin">
+            <a href="/admin" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="M692.382-270q26.383 0 44.5-19Q755-308 755-333.882q0-25.883-18.618-44Q717.765-396 692.882-396 666-396 647.5-377.882q-18.5 18.117-18.5 44Q629-308 647.5-289q18.5 19 44.882 19Zm-.882 125q33.5 0 59.882-13.5Q777.765-172 798-198q-27-14-53.137-21.5t-53.325-7.5Q664-227 637-219.5q-27 7.5-52 21.5 19 26 45.313 39.5Q656.627-145 691.5-145ZM480-54Q331.231-88.81 233.116-220.804 135-352.798 135-522.171v-256.314L480-907l346 129v302q-23-15-46.721-24.594Q755.557-510.188 731-513v-199.861L480-805l-251 91.831v190.735Q229-444 254-381.5t62.5 108Q354-228 397-199t79 40q7 24 26 48.5T542-74q-15 8-31 12t-31 8Zm212.5-26Q615-80 560-135.5T505-267q0-78.435 54.99-133.717Q614.98-456 693-456q77 0 132.5 55.283Q881-345.435 881-267q0 76-55.5 131.5T692.5-80ZM480-482Z"
+                />
+              </svg>
+              <span class="link-text">Admin</span>
+            </a>
+          </li>
+          <li class="nav-item" id="dashboard">
+            <a href="/dashboard" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="M504-581v-304h381v304H504ZM75-431v-454h381v454H75ZM504-77v-455h381v455H504ZM75-77v-305h381v305H75Zm95-448h192v-266H170v266Zm429 353h192v-265H599v265Zm0-503h192v-116H599v116ZM170-172h192v-115H170v115Zm192-353Zm237-150Zm0 238ZM362-287Z"
+                />
+              </svg>
+              <span class="link-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item" id="pm-checklist">
+            <a href="/pm-checklist" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="M226-190 59-356l67-66 100 99 179-180 66 68-245 245Zm0-320L59-676l67-66 100 99 179-180 66 68-245 245Zm298 237v-94h377v94H524Zm0-320v-94h377v94H524Z"
+                />
+              </svg>
+              <span class="link-text">PM Checklist</span>
+            </a>
+          </li>
+          <li class="nav-item" id="incident-management">
+            <a href="/incident-management" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="m18-107 462-799 462 799H18Zm145-84h634L480-739 163-191Zm321.175-48q13.4 0 23.613-10.388Q518-259.776 518-273.175q0-13.4-10.388-23.113Q497.224-306 483.825-306q-13.4 0-23.613 9.888Q450-286.224 450-272.825q0 13.4 10.388 23.613Q470.776-239 484.175-239ZM454-348h60v-216h-60v216Zm26-117Z"
+                />
+              </svg>
+              <span class="link-text">Incident Management</span>
+            </a>
+          </li>
+          <li class="nav-item" id="network-outage">
+            <a href="/network-outage" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="m697-60-67-66 84-84-84-84 67-67 84 84 84-84 66 67-83 84 83 84-66 66-84-83-84 83ZM55-55l851-851v500q-21-12-45-20.5T812-437v-242L282-149h282.306Q570-123 582.5-99T612-55H55Zm227-94 530-530-156 156-126.5 126.5-118 118L282-149Z"
+                />
+              </svg>
+              <span class="link-text">Network Outages</span>
+            </a>
+          </li>
+          <li class="nav-item" id="training">
+            <a href="/training" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="M174-169q-49-57-75.5-125T72-440q0-161 109.5-278.5T455-846q9 0 18.5.5T489-844l-78-78 50-51 184 184-184 185-50-50 93-93q-11-2-25.5-3t-21.5-1q-126 8-208 98.5T167-440q0 48 16.5 103.5T242-236l-68 67Zm264-10q0-24-17-48.5t-37-50q-20-25.5-36.5-54T331-392q0-62 44-105.5T480-541q62 0 105.5 43.5T629-392q0 32-16.5 60.5t-36.5 54q-20 25.5-36.5 50T523-179h-85Zm-2 102v-57h89v57h-89Zm350-92-66-66q33-40 53.5-92T794-440q0-55-19.5-107.5T712-645l69-68q49 52 78 121.5T888-440q0 80-26.5 147T786-169Z"
+                />
+              </svg>
+              <span class="link-text">Training</span>
+            </a>
+          </li>
+          <li class="nav-item" id="meter-reading">
+            <a href="/meter-reading" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="M320-53v-103q-103-46-167.5-141.5T88-514q0-80.738 30.5-152.369T202-791q53-53 124.482-84t152.5-31Q560-906 631.5-875t125 84Q810-738 841-666.369T872-514q0 121-64.5 216.5T640-156v103h-95v-74q-17 2-33 3.5t-33 1.5q-17.069 0-33.034-1Q430-124 415-127v74h-95Zm160.172-161Q603-214 690.5-301.172q87.5-87.171 87.5-211Q778-635 690.328-722.5q-87.671-87.5-210.5-87.5Q357-810 269.5-722.328q-87.5 87.671-87.5 210.5Q182-388 269.672-301q87.671 87 210.5 87ZM335-597h290v-90H335v90Zm116 331 124-124-50-50 49-50-64-65-125 125 50 50-49 49 65 65Zm29-246Z"
+                />
+              </svg>
+              <span class="link-text">Meter Reading</span>
+            </a>
+          </li>
+          <li class="nav-item" id="sav-testing">
+            <a href="/sav-testing" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="M517-559 329-748l67-67 121 122 234-233 67 65-301 302Zm42 531-299-86v53H10v-440h336l259 98q33 12 56 40t23 78h91q50.917 0 85.958 26.5Q896-232 896-174v44L559-28ZM93-144h82v-274H93v274Zm462 30 256-78q-7-19-15.729-26-8.728-7-20.418-7H567q-27 0-55-4t-47-10l-82-26 22-58 69 23q29 9 51.147 12T597-285q0-12-4.5-23.5T577-325l-245-93h-72v217l295 87ZM175-281Zm422-4Zm-422 4Zm85 0Z"
+                />
+              </svg>
+              <span class="link-text">SAV (Testing)</span>
+            </a>
+          </li>
+          <li class="nav-item" id="management-visit">
+            <a href="/management-visit" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="M187-55v-851h94v78h611l-96 225 96 225H281v323h-94Zm94-679v262-262Zm228.212 203Q539-531 560-552.212q21-21.213 21-51Q581-633 559.788-654q-21.213-21-51-21Q479-675 458-653.788q-21 21.213-21 51Q437-573 458.212-552q21.213 21 51 21ZM281-472h469l-55-131 55-131H281v262Z"
+                />
+              </svg>
+              <span class="link-text">Management Visit</span>
+            </a>
+          </li>
+          <li class="nav-item" id="report">
+            <a href="/report" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="M319-248h322v-71H319v71Zm0-170h322v-71H319v71ZM229-55q-39.05 0-66.525-27.475Q135-109.95 135-149v-662q0-39.463 27.475-67.231Q189.95-906 229-906h363l234 234v523q0 39.05-27.769 66.525Q770.463-55 731-55H229Zm313-570v-186H229v662h502v-476H542ZM229-811v186-186 662-662Z"
+                />
+              </svg>
+              <span class="link-text">Report</span>
+            </a>
+          </li>
+          <li class="nav-item" id="logout">
+            <a href="/logout" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="48"
+                viewBox="0 -960 960 960"
+                width="48"
+              >
+                <path
+                  d="M189-95q-39.05 0-66.525-27.475Q95-149.95 95-189v-582q0-39.463 27.475-67.231Q149.95-866 189-866h296v95H189v582h296v94H189Zm467-174-67-66 97-98H354v-94h330l-97-98 67-66 212 212-210 210Z"
+                />
+              </svg>
+              <span class="link-text">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="main" class="hide">
+      <navbar class="top-navbar">
+        <ul class="top-navbar-nav">
+          <li class="top-nav-item no-mobile" id="greeting">
+            <p class="faded-text no-mobile">
+              <span id="greeting-text" class="no-mobile">Good Morning,</span
+              ><span class="highlighted-text no-mobile" id="user-name"></span>
+            </p>
+            <p class="faded-text-small no-mobile">
+              Be more productive with actionable insights and tools
+            </p>
+          </li>
+          <li class="top-nav-item">
+            <select id="time-range">
+              {% for year in year_array %}
+              <option value="{{ year }}">{{ year }}-{{ year + 1 }}</option>
+              {% endfor %}
+            </select>
+          </li>
+          <li class="top-nav-item">
+            <img
+              id="profile-picture"
+              src=""
+              alt="Profile Picture"
+              height="50px"
+              width="50px"
+            />
+          </li>
+        </ul>
+      </navbar>
+
+      <section class="topbar">
+        <p class="no-mobile">
+          The report encompasses data from
+          <span class="time-range" id="display-time-range"></span>
+        </p>
+        <button id="copy-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48"
+            viewBox="0 -960 960 960"
+            width="48"
+          >
+            <path
+              d="M726.941-57Q670.5-57 630.25-97.388T590-193.945q0-7.01 1.5-17.675Q593-222.286 596-232L330-387q-18 20-43.346 32-25.346 12-52.206 12-57.27 0-97.359-40.309Q97-423.618 97-480.059t40.089-96.691Q177.178-617 234.448-617q26.86 0 51.206 10.5Q310-596 330-576l266-153q-3-8.071-4.5-18.433t-1.5-18.953q0-56.031 40.309-96.322Q670.618-903 727.059-903t96.691 40.309Q864-822.382 864-765.941t-40.089 96.691Q783.822-629 726.552-629q-27.213 0-51.959-7.969Q649.847-644.938 633-665L366-520q3 9 4 21.023 1 12.022 1 19.218t-1 15.978Q369-455 366-445l267 149q16.847-17.062 40.27-26.031Q696.692-331 726.552-331q57.27 0 97.359 40.309Q864-250.382 864-193.941T823.691-97.25Q783.382-57 726.941-57Zm.094-655Q750-712 765.5-727.535q15.5-15.535 15.5-38.5T765.465-804.5q-15.535-15.5-38.5-15.5T688.5-804.465q-15.5 15.535-15.5 38.5t15.535 38.465q15.535 15.5 38.5 15.5Zm-493 286Q257-426 272.5-441.535q15.5-15.535 15.5-38.5T272.465-518.5q-15.535-15.5-38.5-15.5T195.5-518.465q-15.5 15.535-15.5 38.5t15.535 38.465q15.535 15.5 38.5 15.5Zm493 286Q750-140 765.5-155.535q15.5-15.535 15.5-38.5T765.465-232.5q-15.535-15.5-38.5-15.5T688.5-232.465q-15.5 15.535-15.5 38.5t15.535 38.465q15.535 15.5 38.5 15.5ZM727-766ZM234-480Zm493 286Z"
+            />
+          </svg>
+          <span id="copy-button-text">Share</span>
+        </button>
+        <button id="export-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48"
+            viewBox="0 -960 960 960"
+            width="48"
+          >
+            <path
+              d="M205-112q-39.05 0-66.525-27.827Q111-167.655 111-207.2V-395h94v188h549v-188h94v187.529Q848-168 820-140q-28 28-66 28H205Zm275-222L251-562l68-67 114 115v-357h94v357l114-115 68 67-229 228Z"
+            />
+          </svg>
+          Export
+        </button>
+      </section>
+      <hr />
+      <section id="primary">
+        <div class="upper">
+          <div class="left">
+            <p class="heading">Number of Incidents</p>
+            <div class="chart">
+              <canvas id="incidentPrimaryChart"></canvas>
+            </div>
+          </div>
+          <div class="right">
+            <p class="heading">Mean Time To Repair</p>
+            <div class="chart">
+              <canvas id="mttrPrimaryChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="map_div">
+          <p style="text-align: left" class="heading">Incident Locations</p>
+          <div id="map"></div>
+        </div>
+        <div class="lower">
+          <p style="text-align: left" class="heading">Incident Reports</p>
+          <table id="incident_table">
+            <tr class="header">
+              <th>ID</th>
+              <th>Employee Name</th>
+              <th>Circle Name</th>
+              <th>Site ID</th>
+              <th>Site Name</th>
+              <th>Date</th>
+              <th>Verified</th>
+              <th>Approved</th>
+              <th></th>
+              <th></th>
+            </tr>
+
+          </table>
+        </div>
+      </section>
+      <footer>
+        <p>
+          Designed & Developed by
+          <a href="https://www.trinityapplab.com/" target="_blank"
+            >Trinity App Lab</a
+          >
+        </p>
+        <p class="copyright">
+          Copyright © 2023 | Crest Digitel . All rights reserved.
+        </p>
+      </footer>
+    </main>
+    <div class="modal hide" id="modal">
+      <div class="modal-header">
+        <p style="text-align: left">
+          Incident Report - ID#<span id="modalID">545</span>
+        </p>
+        <svg
+          id="modal-close-button"
+          xmlns="http://www.w3.org/2000/svg"
+          height="555"
+          viewBox="0 -960 960 960"
+          width="555"
+        >
+          <path
+            d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+          />
+        </svg>
+      </div>
+      <div class="modal-body">
+        <p class="modal-body-header">Information</p>
+        <div>
+          <p id="modal_employee_name">Loading...</p>
+          <p id="modal_circle_name">Loading...</p>
+          <p id="modal_site_id">Loading...</p>
+          <p id="modal_site_name">Loading...</p>
+          <p id="modal_incident_date">Loading...</p>
+          <p id="modal_verified">Loading...</p>
+          <p id="modal_approved">Loading...</p>
+        </div>
+        <p class="modal-body-header">Incident Details</p>
+        <div>
+          <p id="modal_incident_type">Loading...</p>
+          <p id="modal_incident_cause">Loading...</p>
+          <p id="modal_incident_description">Loading...</p>
+          <p id="modal_incident_action">Loading...</p>
+        </div>
+        <p class="modal-body-header">Media</p>
+        <div class="media" id="modal_media">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
